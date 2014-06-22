@@ -1,0 +1,1 @@
+grunt build && git add --all && git commit -m "Update" && git push openshift master && git push origin master
