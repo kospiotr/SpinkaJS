@@ -1,0 +1,21 @@
+{
+  "name": "Main",
+  "version": "0.0.0",
+  "authors": [
+    "Piotr Kosmowski <kospiotr@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ExtJS-App": "git@github.com:kospiotr/extjs-app.git#~5.0.0"
+  }
+}
