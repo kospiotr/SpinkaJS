@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build-dev', ['copy:ext_resources_testing', 'concat:js']);
     grunt.registerTask('build', ['build-common', 'copy:ext_resources_production', 'concat:js']);
 
-    grunt.registerTask('build-common', ['clean:build']);
+    grunt.registerTask('build-common', ['clean:build', 'copy:server']);
     grunt.registerTask('watch-build', ['connect', 'watch' ]);
 
     grunt.initConfig({
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
         },
         watch: {
             js: {
-                files: 'src/frontend/js/**/*.js',
+                files: 'src/public/js/**/*.js',
                 tasks: ['build-dev']
             },
             js_libs: {
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         },
         concat: {
             js: {
-                src: ['build/public/app.js', 'src/frontend/js/**/*.js'],
+                src: ['build/public/app.js', 'src/public/js/**/*.js'],
                 dest: 'build/public/app.js'
             }
         },
@@ -51,6 +51,11 @@ module.exports = function (grunt) {
             ext_resources_production: {
                 files: [
                     {cwd: 'bower_components/ExtJS-App/production/App/', src: '**', dest: 'build/public/', expand: true}
+                ]
+            },
+            server: {
+                files: [
+                    {src: 'src/server.js', dest: 'build/server.js'}
                 ]
             }
         }
