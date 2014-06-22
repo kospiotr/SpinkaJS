@@ -1,7 +1,9 @@
 {
     "name": "SpintenseJS",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "express": "~3.4.4"
+    },
     "devDependencies": {
         "grunt-cli": "~0.1.13",
         "grunt-contrib-concat": "~0.4.0",
