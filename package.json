@@ -1,6 +1,22 @@
 {
     "name": "SpintenseJS",
     "version": "0.0.1",
+    "description": "OpenShift Sample Application",
+    "keywords": [    ],
+    "author": {
+        "name": "Piotr Kosmowski",
+        "email": "kospiotr@tlen.pl"
+    },
+    "homepage": "http://www.openshift.com/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kospiotr/SpintenseJS"
+    },
+    "engines": {
+        "node": ">= 0.6.0",
+        "npm": ">= 1.0.0"
+    },
+    "main": "build/server.js",
     "dependencies": {
         "express": "~3.4.4"
     },
@@ -22,4 +38,5 @@
         "postinstall": "node node_modules/grunt-cli/bin/grunt build",
         "start": "node build/server.js"
     }
+
 }
