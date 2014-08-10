@@ -1,5 +1,5 @@
 {
-  "name": "Main",
+  "name": "SpinkaJS",
   "version": "0.0.0",
   "authors": [
     "Piotr Kosmowski <kospiotr@gmail.com>"
@@ -16,6 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "ExtJS-App": "git@github.com:kospiotr/extjs-app.git#~5.0.0"
+    "extjs-lib": "git@github.com:kospiotr/extjs-lib.git#~5.0.0"
   }
 }
