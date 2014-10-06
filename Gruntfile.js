@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 					port: 8080,
 					base: 'build/public',
 					livereload: true
-				}
+				} 
 			}
 		},
 		watch: {
@@ -24,6 +24,10 @@ module.exports = function (grunt) {
 			},
 			js_libs: {
 				files: 'bower_components/**/*.*',
+				tasks: ['process-build']
+			},
+			grunt_config: {
+				files: 'Gruntfile.js',
 				tasks: ['process-build']
 			},
 			build: {
@@ -39,6 +43,10 @@ module.exports = function (grunt) {
 		concat: {
 			js: {
 				src: [
+					'build/public/app/ux/**/*.js',
+					'build/public/app/model/**/*.js',
+					'build/public/app/store/**/*.js',
+					'build/public/app/controller/**/*.js',
 					'build/public/app/view/**/*.js',
 					'build/public/app/app.js'
 				],
@@ -65,6 +73,9 @@ module.exports = function (grunt) {
 					}, {
 						cwd: 'bower_components/extjs-lib/packages/ext-theme-neptune/build/', src: '**',
 						dest: 'build/public/extjs/theme', expand: true
+					}, {
+						cwd: 'bower_components/extjs-lib/examples/kitchensink/crisp-en/resources/pictos/', src: '**',
+						dest: 'build/public/pictos', expand: true
 					}
 				]
 			},

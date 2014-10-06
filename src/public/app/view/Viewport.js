@@ -1,8 +1,24 @@
 Ext.define('App.view.Viewport', {
-	extend: 'Ext.Panel',
-	bodyPadding: 10,
-	padding: 10,
-	title: 'Hello World',
-	html: 'Hello <b>Worlddd</b>...'
-	
+  extend: 'Ext.panel.Panel',
+  requires: ['App.controller.ViewportController'],
+  controller: 'main',
+  layout: 'card',
+  border: false,
+  bodyBorder: false,
+  tbar: {
+    xtype: 'toolbar',
+    border: false,
+    style: {
+      backgroundColor: '#157fcc'
+    },
+    items: [
+      {id: 'homeButton', xtype: 'button', text: 'SpinkaJS'},
+      {id: 'projectsButton', xtype: 'button', text: 'Projects'},
+      {id: 'scientistsButton', xtype: 'button', text: 'Scientists'},
+      {id: 'contractorsButton', xtype: 'button', text: 'Contractors'},
+      '->',
+      {xtype: 'textfield', text: 'Profile', emptyText: 'search ...'},
+      {xtype: 'button', text: 'Profile'}
+    ]
+  }
 });
