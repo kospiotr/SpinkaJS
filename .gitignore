@@ -1,2 +1,5 @@
 /build/
 /nbproject/
+/node_modules
+/bower_components/extjs-lib/examples/
+/bower_components/extjs-lib/welcome/

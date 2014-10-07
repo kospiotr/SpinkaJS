@@ -35,6 +35,6 @@
     "grunt-replace": "~0.7.8"
   },
   "scripts": {
-    "start": "grunt build && node build/server.js"
+    "start": "npm install && grunt build && node build/server.js"
   }
 }
