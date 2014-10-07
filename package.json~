@@ -10,7 +10,7 @@
   "homepage": "http://www.openshift.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kospiotr/SpinkaJS"
+    "url": "https://github.com/kospiotr/Spinka"
   },
   "engines": {
     "node": ">= 0.6.0",
@@ -35,6 +35,6 @@
     "grunt-replace": "~0.7.8"
   },
   "scripts": {
-    "start": "npm install && grunt clean && grunt build && node build/server.js"
+    "start": "node build/server.js"
   }
 }
