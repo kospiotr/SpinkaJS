@@ -12,14 +12,14 @@ module.exports = function (grunt) {
 			server: {
 				options: {
 					port: 8080,
-					base: 'build/public',
+					base: 'build/client',
 					livereload: true
 				} 
 			}
 		},
 		watch: {
 			js: {
-				files: 'src/public/app/**/*.js',
+				files: 'src/client/app/**/*.js',
 				tasks: ['process-build']
 			},
 			js_libs: {
@@ -43,22 +43,22 @@ module.exports = function (grunt) {
 		concat: {
 			js: {
 				src: [
-					'build/public/app/ux/**/*.js',
-					'build/public/app/model/**/*.js',
-					'build/public/app/store/**/*.js',
-					'build/public/app/controller/**/*.js',
-					'build/public/app/view/**/*.js',
-					'build/public/app/app.js'
+					'build/client/app/ux/**/*.js',
+					'build/client/app/model/**/*.js',
+					'build/client/app/store/**/*.js',
+					'build/client/app/controller/**/*.js',
+					'build/client/app/view/**/*.js',
+					'build/client/app/app.js'
 				],
-				dest: 'build/public/app.js'
+				dest: 'build/client/app.js'
 			}
 		},
 		copy: {
 			app: {
 				files: [
 					{
-						cwd: 'src/public/', src: '**',
-						dest: 'build/public', expand: true
+						cwd: 'src/client/', src: '**',
+						dest: 'build/client', expand: true
 					}
 				]
 			},
@@ -66,22 +66,25 @@ module.exports = function (grunt) {
 				files: [
 					{
 						cwd: 'bower_components/extjs-lib/', src: 'ext-all.js',
-						dest: 'build/public/extjs', expand: true
+						dest: 'build/client/extjs', expand: true
 					}, {
 						cwd: 'bower_components/extjs-lib/', src: 'ext-all-debug.js',
-						dest: 'build/public/extjs', expand: true
+						dest: 'build/client/extjs', expand: true
 					}, {
 						cwd: 'bower_components/extjs-lib/packages/ext-theme-neptune/build/', src: '**',
-						dest: 'build/public/extjs/theme', expand: true
+						dest: 'build/client/extjs/theme', expand: true
 					}, {
 						cwd: 'bower_components/extjs-lib/examples/kitchensink/crisp-en/resources/pictos/', src: '**',
-						dest: 'build/public/pictos', expand: true
+						dest: 'build/client/pictos', expand: true
 					}
 				]
 			},
 			server: {
 				files: [
-					{src: 'src/server.js', dest: 'build/server.js'}
+					{
+            cwd: 'src/server/', src: '**', 
+            dest: 'build/server', expand: true
+          }
 				]
 			}
 		},
@@ -92,7 +95,7 @@ module.exports = function (grunt) {
 			},
 			my_target: {
 				files: {
-					'build/public/app.min.js': ['build/public/app.js']
+					'build/client/app.min.js': ['build/client/app.js']
 				}
 			}
 		},
@@ -107,7 +110,7 @@ module.exports = function (grunt) {
 					]
 				},
 				files: [
-					{cwd: 'build/public/', src: ['index*.html'], dest: 'build/public', expand: true, }
+					{cwd: 'build/client/', src: ['index*.html'], dest: 'build/client', expand: true, }
 				]
 			}
 		}
