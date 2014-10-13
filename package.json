@@ -16,6 +16,7 @@
     "node": ">= 0.6.0",
     "npm": ">= 1.0.0"
   },
+  "main": "build/server/server.js",
   "dependencies": {
     "express": "~4.0.0",
     "underscore": "~1.7.0",
