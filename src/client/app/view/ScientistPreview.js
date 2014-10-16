@@ -1,4 +1,4 @@
-Ext.define('App.view.Scientist', {
+Ext.define('App.view.ScientistPreview', {
   extend: 'Ext.panel.Panel',
   statics: {
     template: new Ext.XTemplate('<p>Testing Scientist: {firstName} , {lastName}, {email}</p>')
@@ -9,23 +9,10 @@ Ext.define('App.view.Scientist', {
   border: false,
   bodyBorder: false,
   title: 'Scientist',
-  layout: 'card',
   padding: 5,
   style: {
     backgroundColor: '#3892d3;'
   },
-  items:[
-    {
-      itemId: 'previewPanel',
-      xtype: 'panel',
-      html: 'Preview'
-    },
-    {
-      itemId: 'editPanel',
-      xtype: 'panel',
-      html: 'Edit'
-    }
-  ],
   bbar: {
     xtype: 'toolbar',
     items: [
@@ -47,8 +34,7 @@ Ext.define('App.view.Scientist', {
     ]
   },
   setUpRecord: function (record) {
-    var previewPanel = this.getComponent('previewPanel');
     data = record ? record.raw : null;
-    previewPanel.html = App.view.Scientist.template.applyTemplate(data);
+    this.html = App.view.ScientistPreview.template.applyTemplate(data);
   }
 });

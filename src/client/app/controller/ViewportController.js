@@ -18,7 +18,7 @@ Ext.define('App.controller.ViewportController', {
         'click': me.runContractors
       }
     });
-    me.runScientist();
+    me.runScientists();
   },
   setActiveItem: function (item) {
     this.getView().removeAll(true);
@@ -35,10 +35,10 @@ Ext.define('App.controller.ViewportController', {
   runScientists: function () {
     var view = Ext.create('App.view.Scientists');
     view.on('openRecord', this.runScientist, this);
-    this.setActiveItem(view);
+    this.setActiveItem(view); 
   },
   runScientist: function (record) {
-    var view = Ext.create('App.view.Scientist');
+    var view = Ext.create('App.view.ScientistEdit');
     view.on('backToList', this.runScientists, this);
     view.setUpRecord(record);
     this.setActiveItem(view);
