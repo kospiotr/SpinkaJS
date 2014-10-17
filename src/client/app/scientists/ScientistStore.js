@@ -1,7 +1,7 @@
-Ext.define('App.store.ScientistStore', {
+Ext.define('App.scientists.ScientistStore', {
   extend: 'Ext.data.Store',
   storeId: 'scientistStore',
-  model: 'App.model.Scientist',
+  model: 'App.scientists.ScientistModel',
   autoLoad: true,
   autoSync: true,
   proxy: {

@@ -1,7 +1,8 @@
 Ext.application({
 	name: 'App',
 	namespaces: ['App'],
-	requires: ['App.store.ScientistStore'],
-	autoCreateViewport: 'App.view.Viewport',
+	requires: ['App.ViewportView'],
+//	requires: ['App.scientists.ScientistStore'],
+	autoCreateViewport: 'App.ViewportView',
 	glyphFontFamily: 'Pictos'
 });

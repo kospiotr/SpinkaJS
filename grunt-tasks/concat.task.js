@@ -3,10 +3,10 @@ module.exports = function (grunt) {
     'client-js': {
       src: [
         'build/client/app/ux/**/*.js',
-        'build/client/app/model/**/*.js',
-        'build/client/app/store/**/*.js',
-        'build/client/app/controller/**/*.js',
-        'build/client/app/view/**/*.js',
+        'build/client/**/*Model.js',
+        'build/client/**/*Store.js',
+        'build/client/**/*Controller.js',
+        'build/client/**/*View.js',
         'build/client/app/app.js'
       ],
       dest: 'build/client/app.js'

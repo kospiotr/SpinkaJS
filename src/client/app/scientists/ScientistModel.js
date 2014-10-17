@@ -1,4 +1,4 @@
-Ext.define('App.model.Scientist',{
+Ext.define('App.scientists.ScientistModel',{
 	extend: 'Ext.data.Model',
   alias: 'viewmodel.scientist',
 	fields: [

@@ -1,4 +1,4 @@
-Ext.define('App.controller.ScientistsController', {
+Ext.define('App.scientists.ScientistsController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.scientists',
   control: {

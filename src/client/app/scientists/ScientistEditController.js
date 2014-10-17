@@ -1,4 +1,4 @@
-Ext.define('App.controller.ScientistEditController', {
+Ext.define('App.scientists.ScientistEditController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.scientistedit',
   control: {
@@ -10,7 +10,7 @@ Ext.define('App.controller.ScientistEditController', {
     },
     '#setupButton': {
       click: function () {
-        var record = Ext.create('App.model.Scientist', {
+        var record = Ext.create('App.scientists.ScientistModel', {
           firstName: 'Test'
         });
         this.setUpRecord(record);

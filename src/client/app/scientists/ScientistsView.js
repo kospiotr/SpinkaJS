@@ -1,7 +1,7 @@
-Ext.define('App.view.Scientists', {
+Ext.define('App.scientists.ScientistsView', {
   extend: 'Ext.panel.Panel',
-  alias: 'view.Scientists',
-  requires: ['App.store.ScientistStore', 'App.controller.ScientistsController', 'App.ux.PreviewPlugin'],
+  alias: 'view.scientists',
+  requires: ['App.scientists.ScientistStore', 'App.scientists.ScientistsController', 'App.ux.PreviewPlugin'],
   controller: 'scientists',
   border: false,
   bodyBorder: false,
@@ -52,7 +52,7 @@ Ext.define('App.view.Scientists', {
       layout: 'fit',
       margin: '5 5 5 0',
       xtype: 'grid',
-      store: Ext.create('App.store.ScientistStore'),
+      store: Ext.create('App.scientists.ScientistStore'),
       title: 'Scientists',
       columns: [
         {text: 'First Name', dataIndex: 'firstName'},

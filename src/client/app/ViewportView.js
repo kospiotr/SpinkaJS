@@ -1,6 +1,6 @@
-Ext.define('App.view.Viewport', {
+Ext.define('App.ViewportView', {
   extend: 'Ext.panel.Panel',
-  requires: ['App.controller.ViewportController'],
+  requires: ['App.ViewportController'],
   controller: 'main',
   layout: 'card',
   border: false,

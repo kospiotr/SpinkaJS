@@ -1,10 +1,10 @@
-Ext.define('App.view.ScientistPreview', {
+Ext.define('App.scientists.ScientistPreviewView', {
   extend: 'Ext.panel.Panel',
   statics: {
     template: new Ext.XTemplate('<p>Testing Scientist: {firstName} , {lastName}, {email}</p>')
   },
   alias: 'view.Scientist',
-  requires: ['App.controller.ScientistController'],
+  requires: ['App.scientists.ScientistController'],
   controller: 'scientist',
   border: false,
   bodyBorder: false,
@@ -35,6 +35,6 @@ Ext.define('App.view.ScientistPreview', {
   },
   setUpRecord: function (record) {
     data = record ? record.raw : null;
-    this.html = App.view.ScientistPreview.template.applyTemplate(data);
+    this.html = App.scientists.ScientistPreview.template.applyTemplate(data);
   }
 });

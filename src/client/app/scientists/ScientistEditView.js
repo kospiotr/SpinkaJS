@@ -1,13 +1,13 @@
-Ext.define('App.view.ScientistEdit', {
+Ext.define('App.scientists.ScientistEditView', {
   extend: 'Ext.form.Panel',
-  requires: ['App.model.Scientist', 'App.controller.ScientistEditController'],
+  requires: ['App.scientists.ScientistModel', 'App.scientists.ScientistEditController'],
   controller: 'scientistedit',
   statics: {
     template: new Ext.XTemplate('<p>Testing Scientist: {firstName} , {lastName}, {email}</p>')
   },
   viewModel: {
     data: {
-      person: Ext.create('App.model.Scientist')
+      person: Ext.create('App.scientists.ScientistModel')
     }
   },
   autoShow: true,
