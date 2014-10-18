@@ -1,19 +1,16 @@
-Ext.define('App.scientists.ScientistEditController', {
+Ext.define('App.scientists.ScientistEditorController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.scientistedit',
   control: {
     '#registerButton': {
       click: function () {
         var view = this.getView();
-        debugger;
       }
     },
     '#setupButton': {
       click: function () {
-        var record = Ext.create('App.scientists.ScientistModel', {
-          firstName: 'Test'
-        });
-        this.setUpRecord(record);
+        var v = this.getView();
+        v.spotlight.show(v.getId());
       }
     }
   },

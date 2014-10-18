@@ -1,8 +1,8 @@
-Ext.define('App.scientists.ScientistsView', {
+Ext.define('App.scientists.ScientistListView', {
   extend: 'Ext.panel.Panel',
   alias: 'view.scientists',
-  requires: ['App.scientists.ScientistStore', 'App.scientists.ScientistsController', 'App.ux.PreviewPlugin'],
-  controller: 'scientists',
+  requires: ['App.scientists.ScientistStore', 'App.scientists.ScientistListController', 'App.ux.PreviewPlugin'],
+  controller: 'scientistlist',
   border: false,
   bodyBorder: false,
   layout: 'border',

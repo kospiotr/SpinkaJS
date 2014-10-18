@@ -15,12 +15,12 @@ Ext.define('App.ViewportController', {
     this.getView().setActiveItem(item);
   },
   runScientists: function () {
-    var view = Ext.create('App.scientists.ScientistsView');
+    var view = Ext.create('App.scientists.ScientistListView');
     view.on('openRecord', this.runScientist, this);
     this.setActiveItem(view); 
   },
   runScientist: function (record) {
-    var view = Ext.create('App.scientists.ScientistEditView');
+    var view = Ext.create('App.scientists.ScientistEditorView');
     view.on('backToList', this.runScientists, this);
     view.setUpRecord(record);
     this.setActiveItem(view);

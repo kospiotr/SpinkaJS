@@ -1,6 +1,6 @@
-Ext.define('App.scientists.ScientistsController', {
+Ext.define('App.scientists.ScientistListController', {
   extend: 'Ext.app.ViewController',
-  alias: 'controller.scientists',
+  alias: 'controller.scientistlist',
   control: {
     grid:{
       rowdblclick: function (grid, record, tr, rowIndex, e, eOpts ) {
