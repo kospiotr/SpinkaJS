@@ -1,21 +1,17 @@
 Ext.define('App.scientists.ScientistEditorController', {
-  extend: 'Ext.app.ViewController',
-  alias: 'controller.scientistedit',
-  control: {
-    '#registerButton': {
-      click: function () {
-        var view = this.getView();
-      }
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.scientistedit',
+    control: {
+        '#saveButton': {
+            click: function () {
+                var record = this.getViewModel().get('record');
+                console.log(record);
+                record.save();
+            }
+        }
     },
-    '#setupButton': {
-      click: function () {
-        var v = this.getView();
-        v.spotlight.show(v.getId());
-      }
+    setUpRecord: function (record) {
+        this.getViewModel().set('record', record);
     }
-  },
-  setUpRecord: function (record) {
-    this.getViewModel().set('person', record);
-  }
 
 });
