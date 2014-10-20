@@ -15,19 +15,18 @@ Ext.define('App.ViewportController', {
     this.getView().setActiveItem(item);
   },
   runScientists: function () {
-    var view = Ext.create('App.scientists.ScientistListView');
-    view.on('openRecord', this.runScientist, this);
-    view.on('newRecord', this.newScientist, this);
-    view.on('delRecord', this.delScientist, this);
-    this.setActiveItem(view); 
+    var listView = Ext.create('App.scientists.ScientistListView');
+    listView.on('newRecord', this.runScientist, this);
+    listView.on('openRecord', this.runScientist, this);
+    listView.on('editRecord', this.runScientist, this);
+    listView.on('copyRecord', this.runScientist, this);
+    listView.on('delRecord', this.delScientist, this);
+    this.setActiveItem(listView); 
   },
   runScientist: function (record) {
     var view = Ext.create('App.scientists.ScientistEditorView');
-    view.setUpRecord(record);
+    view.getForm().loadRecord(record);
     this.setActiveItem(view);
-  },
-  newScientist: function () {
-      this.runScientist(new App.scientists.ScientistModel());
   },
   delScientist: function (record) {
       record.drop();

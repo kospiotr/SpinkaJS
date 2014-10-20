@@ -1,5 +1,5 @@
 Ext.define('App.scientists.ScientistStore', {
   extend: 'Ext.data.Store',
-  storeId: 'scientistStore',
+  alias: 'store.scientists',
   model: 'App.scientists.ScientistModel',
 });

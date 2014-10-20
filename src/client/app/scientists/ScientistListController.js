@@ -1,6 +1,6 @@
 Ext.define('App.scientists.ScientistListController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.scientistlist',
+    alias: 'controller.scientist-list',
     control: {
         grid: {
             rowdblclick: function (grid, record, tr, rowIndex, e, eOpts) {
@@ -9,16 +9,22 @@ Ext.define('App.scientists.ScientistListController', {
         },
         '#newButton': {
             click: function () {
-                this.getView().fireEvent('newRecord');
+                this.getView().fireEvent('newRecord', new App.scientists.ScientistModel());
+            }
+        },
+        '#editButton': {
+            click: function () {
+                this.getView().fireEvent('editRecord', this.getSelectedRecord());
+            }
+        },
+        '#copyButton': {
+            click: function () {
+                this.getView().fireEvent('copyRecord', this.getSelectedRecord());
             }
         },
         '#delButton': {
             click: function () {
-                var grid = this.view.lookupComponent('gridId');
-                var selected = grid.getSelection();
-                Ext.each(selected, function(record){
-                    record.erase();
-                },this);
+                this.getView().fireEvent('delRecord', this.getSelectedRecords());
             }
         }
     },
@@ -31,6 +37,14 @@ Ext.define('App.scientists.ScientistListController', {
     },
     loadGrid: function () {
         this.view.lookupComponent('gridId').store.load();
+    },
+    getSelectedRecords: function () {
+        var grid = this.view.lookupComponent('gridId');
+        return grid.getSelection();
+    },
+    getSelectedRecord: function () {
+        var selectedRecords = this.getSelectedRecords() || [];
+        return selectedRecords.length > 0 ? selectedRecords[0] : null;
     }
 
 });
