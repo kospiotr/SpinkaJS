@@ -2,9 +2,11 @@ var config = require('config');
 
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json')
   });
+
   grunt.loadTasks('grunt-tasks');
 
   grunt.registerTask('build', ['clean', 'build-client', 'build-server']);
