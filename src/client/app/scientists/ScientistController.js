@@ -1,23 +1,13 @@
 Ext.define('App.scientists.ScientistController', {
-  extend: 'Ext.app.ViewController',
-  alias: 'controller.scientist',
-  
-  control: {
-    '#backToListButton':{
-      click: function () {
-        this.getView().fireEvent('backToList');
-      }
+    extend: 'Ext.app.ViewController',
+    alias: 'controller.scientists',
+    control: {
     },
-    '#previewButton': {
-      click: function(){
-        this.getView().setActiveItem('previewPanel');
-      }
+    init: function () {
+        console.log('Init ScientistController');
     },
-    '#editButton': {
-      click: function(){
-        this.getView().setActiveItem('editPanel');
-      }
+    activated: function () {
+        Ext.log('Scientists Module Activated');
     }
-  }
 
 });

@@ -1,8 +1,8 @@
 Ext.define('App.scientists.ScientistListView', {
     extend: 'Ext.panel.Panel',
     alias: 'view.scientists',
-    requires: ['App.scientists.ScientistStore', 'App.scientists.ScientistListController', 'App.ux.PreviewPlugin'],
-    controller: 'scientist-list',
+    controller: 'scientist-list-view',
+    requires: ['App.scientists.ScientistListViewController','App.scientists.ScientistStore', 'App.ux.PreviewPlugin'],
     border: false,
     layout: 'border',
     items: [
@@ -31,11 +31,10 @@ Ext.define('App.scientists.ScientistListView', {
             ],
             bbar: [
                 '->',
-                {text: 'Clear', listeners: {click: 'onClearClick'}},
-                {text: 'Search', listeners: {click: 'onSearchClick'}}
+                {text: 'Clear', action: 'clear'},
+                {text: 'Search', action: 'search'}
             ]
         }, {
-            id: 'gridId',
             region: 'center',
             border: false,
             layout: 'fit',
@@ -63,16 +62,16 @@ Ext.define('App.scientists.ScientistListView', {
                 xtype: 'pagingtoolbar',
                 prependButtons: true,
                 items: [
-                    {id: 'newButton', xtype: 'button', text: 'New'},
-                    {id: 'editButton', xtype: 'splitbutton', text: 'Edit',
-                        menu: {xtype: 'menu', items: [{id: 'copyButton', text: 'Copy'}]},
+                    {xtype: 'button', text: 'New'},
+                    {xtype: 'splitbutton', text: 'Edit',
+                        menu: {xtype: 'menu', items: [{text: 'Copy'}]},
                     },
-                    {id: 'delButton', xtype: 'button', text: 'Delete'},
-                    {id: 'exportButton', xtype: 'button', text: 'Export',
+                    {xtype: 'button', text: 'Delete'},
+                    {xtype: 'button', text: 'Export',
                         menu: {
                             items: [
-                                {id: 'printButton', text: 'Print'},
-                                {id: 'saveAsButton', text: 'Save as'}
+                                {text: 'Print'},
+                                {text: 'Save as'}
                             ]
                         }
                     },

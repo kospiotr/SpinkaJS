@@ -1,8 +1,7 @@
 Ext.define('App.scientists.ScientistEditorView', {
     extend: 'Ext.form.Panel',
     xtype: 'scientist-editor-view',
-    requires: ['App.scientists.ScientistModel', 'App.scientists.ScientistEditorController'],
-    controller: 'scientist-editor',
+    requires: ['App.scientists.ScientistModel'],
     statics: {
         template: new Ext.XTemplate('<p>Testing Scientist: {firstName} , {lastName}, {email}</p>')
     },

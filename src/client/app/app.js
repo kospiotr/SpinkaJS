@@ -1,8 +1,12 @@
 Ext.application({
 	name: 'App',
 	namespaces: ['App'],
-	requires: ['App.ViewportView'],
-//	requires: ['App.scientists.ScientistStore'],
+	requires: ['App.ViewportView', 'App.AppController'],
 	autoCreateViewport: 'App.ViewportView',
-	glyphFontFamily: 'Pictos'
+	glyphFontFamily: 'Pictos',
+        launch: function(){
+            console.log('Init app');
+            var appController = this.getController('App.AppController');
+            appController.runHome();
+        }
 });

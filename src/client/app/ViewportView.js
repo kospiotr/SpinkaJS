@@ -1,10 +1,9 @@
 Ext.define('App.ViewportView', {
   extend: 'Ext.panel.Panel',
-  requires: ['App.ViewportController'],
-  controller: 'main',
   layout: 'card',
   border: false,
   bodyBorder: false,
+  id: 'viewport',
   tbar: {
     xtype: 'toolbar',
     border: false,
