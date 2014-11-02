@@ -1,7 +1,7 @@
 Ext.define('App.AppController', {
     extend: 'Ext.app.Controller',
     require: ['App.scientists.ScientistController'],
-    views: ['App.scientists.ScientistListView', 'App.home.HomeView'],
+    views: ['App.scientists.ScientistListView', 'App.scientists.ScientistEditorView', 'App.home.HomeView'],
     config: {
         workflow: {
             scientists: {
@@ -9,18 +9,19 @@ Ext.define('App.AppController', {
                 view: 'App.scientists.ScientistListView',
                 route: 'scientists'
             },
+            scientist: {
+                controller: 'App.scientists.ScientistEditorController',
+                view: 'App.scientists.ScientistEditorView',
+                route: 'scientist/:id'
+            },
             home: {
                 view: 'App.home.HomeView',
                 route: 'home'
             }
         }
     },
-    routes: {
-        'home': 'runHome',
-        'scientists': 'runScientists'
-    },
     init: function () {
-        console.log('Init AppController');
+        Ext.log('Init AppController');
         var me = this;
         var routes = {};
         Ext.Object.each(this.getWorkflow(), function (workItemName, workItem) {
@@ -38,13 +39,14 @@ Ext.define('App.AppController', {
                 }
                 var view = me.getView(workItem.view).create();
                 me.setViewportActiveView(view);
-                var controller = me[workItemName + 'Controller'];
-                if (controller && controller.activated) {
-                    controller.activated();
-                }
+                me.fireEvent(workItemName + 'Activated', arguments);
             };
-            routes[workItem.route] = 'run' + WorkItemName;
+
+            if (!routes[workItem.route]) {
+                routes[workItem.route] = 'run' + WorkItemName;
+            }
         });
+        me.setRoutes(routes);
     },
     refs: {
         viewport: '#viewport'

@@ -2,9 +2,14 @@ Ext.define('App.scientists.ScientistListView', {
     extend: 'Ext.panel.Panel',
     alias: 'view.scientists',
     controller: 'scientist-list-view',
-    requires: ['App.scientists.ScientistListViewController','App.scientists.ScientistStore', 'App.ux.PreviewPlugin'],
+    requires: ['App.scientists.ScientistStore','App.scientists.ScientistListViewController', 'App.ux.PreviewPlugin'],
     border: false,
     layout: 'border',
+    viewModel: {
+        stores: {
+            scientists: Ext.create('App.scientists.ScientistStore')
+        }
+    },
     items: [
         {
             region: 'west',
@@ -40,7 +45,8 @@ Ext.define('App.scientists.ScientistListView', {
             layout: 'fit',
             margin: '5 5 5 0',
             xtype: 'grid',
-            store: Ext.create('App.scientists.ScientistStore'),
+//            store: Ext.create('App.scientists.ScientistStore'),
+            bind: '{scientists}',
             title: 'Scientists',
             multiSelect: true,
             columns: [

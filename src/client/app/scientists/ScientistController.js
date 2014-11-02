@@ -4,10 +4,6 @@ Ext.define('App.scientists.ScientistController', {
     control: {
     },
     init: function () {
-        console.log('Init ScientistController');
-    },
-    activated: function () {
-        Ext.log('Scientists Module Activated');
+        Ext.log('Init ScientistController');
     }
-
 });
