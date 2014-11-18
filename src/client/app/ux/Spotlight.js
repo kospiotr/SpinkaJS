@@ -1,7 +1,7 @@
 /**
  * UX used to provide a spotlight around a specified component/element.
  */
-Ext.define('App.ux.Spotlight', {
+Ext.define('Ext.ux.Spotlight', {
     /**
      * @private
      * The baseCls for the spotlight elements

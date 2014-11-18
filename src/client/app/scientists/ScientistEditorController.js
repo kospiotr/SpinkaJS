@@ -4,14 +4,23 @@ Ext.define('App.scientists.ScientistEditorController', {
     listen: {
         controller: {
             '*': {
-                'scientistActivated': 'scientistActivated'
+                'scientistEditActivated': 'scientistEditActivated'
             }
         }
     },
-    init: function () {
-        Ext.log('Init ScientistEditorController');
+//    init: function () {
+//        Ext.log('Init ScientistEditorController');
+//        this.callParent();
+//    },
+    scientistEditActivated: function (args) {
+        var id = args[0];
+        console.log("showScientistActivated: %o", id);
+        if (id == null) {
+            throw 'You need to pass an id'
+        }
+        this.loadRecord(id);
     },
-    scientistActivated: function () {
-        console.log("showScientistActivated: %o ", arguments[0]);
+    loadRecord: function (id) {
+        console.log('Loading with given id: ' + id);
     }
 });

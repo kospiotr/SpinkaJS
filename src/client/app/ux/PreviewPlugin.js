@@ -4,7 +4,7 @@
  * Note: This plugin does NOT assert itself against an existing RowBody feature and may conflict with
  * another instance of the same plugin.
  */
-Ext.define('App.ux.PreviewPlugin', {
+Ext.define('Ext.ux.PreviewPlugin', {
     extend: 'Ext.plugin.Abstract',
     alias: 'plugin.preview',
     requires: ['Ext.grid.feature.RowBody'],
