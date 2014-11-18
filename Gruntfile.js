@@ -9,6 +9,8 @@ module.exports = function (grunt) {
 
   grunt.loadTasks('grunt-tasks');
 
+  grunt.registerTask('test', []);
+  
   grunt.registerTask('build', ['clean', 'build-client', 'build-server']);
   grunt.registerTask('build-client', ['build-client-app', 'copy:client-libraries']);
   grunt.registerTask('build-client-app', ['copy:client-app', 'concat', 'uglify', 'string-replace:client-timestamps']);
