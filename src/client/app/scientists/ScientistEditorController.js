@@ -36,17 +36,13 @@ Ext.define('App.scientists.ScientistEditorController', {
     },
     init: function () {
         this.callParent();
-        this.getViewModel().setFormulas({
-            modelDirty: {
-                bind: {
-                    bindTo: "{model}",
-                    deep: true
-                },
-                get: function () {
-                    return this.getData().model.dirty;
-                }
+        this.getViewModel().bind('{modelDirty}', function(isDirty){
+            if(isDirty){
+                this.fireEvent('showSpotlight', this.getView().getId());
+            }else{
+                this.fireEvent('hideSpotlight');
             }
-        });
+        }, this);
     },
     scientistEditActivated: function (args) {
         var id = args[0];

@@ -1,6 +1,6 @@
 Ext.define('App.AppController', {
     extend: 'Ext.app.Controller',
-    require: ['App.scientists.ScientistController'],
+    require: ['App.scientists.ScientistController', 'Ext.ux.Spotlight'],
     views: ['App.scientists.ScientistListView', 'App.scientists.ScientistEditorView', 'App.home.HomeView'],
     config: {
         workflow: {
@@ -23,6 +23,10 @@ Ext.define('App.AppController', {
     init: function () {
         Ext.log('Init AppController START');
         var me = this;
+        this.spotlight = Ext.create('Ext.ux.Spotlight', {
+            easing: 'easeOut',
+            duration: 300
+        });
         var routes = {};
         var listeners = {};
 
@@ -82,7 +86,7 @@ Ext.define('App.AppController', {
         me.listen({controller: {'*': listeners}});
         this.callParent(arguments);
         Ext.log('Init AppController END');
-        
+
     },
     refs: {
         viewport: '#viewport'
@@ -95,6 +99,20 @@ Ext.define('App.AppController', {
             click: 'goScientistList'
         }
     },
+    listen: {
+        controller: {
+            '*': {
+                showSpotlight: function (id) {
+                    this.spotlight.show(id);
+                },
+                hideSpotlight: function () {
+                    if (this.spotlight.active) {
+                        this.spotlight.hide();
+                    }
+                }
+            }
+        }
+    },
     setViewportActiveView: function (viewName) {
 
         var viewport = this.getViewport();
@@ -102,7 +120,7 @@ Ext.define('App.AppController', {
         var view = this.getView(viewName).create();
         viewport.add(view);
     },
-    destroy: function(){
+    destroy: function () {
         console.log('destroying AppController');
         this.callParent();
     }
