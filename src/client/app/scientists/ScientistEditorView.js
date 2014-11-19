@@ -8,6 +8,7 @@ Ext.define('App.scientists.ScientistEditorView', {
     },
     viewModel: {
         data: {
+            model: Ext.create('App.scientists.ScientistModel')
         }
     },
     defaultType: 'textfield',

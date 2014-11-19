@@ -21,7 +21,7 @@ Ext.define('App.AppController', {
         }
     },
     init: function () {
-        Ext.log('Init AppController');
+        Ext.log('Init AppController START');
         var me = this;
         var routes = {};
         var listeners = {};
@@ -36,12 +36,12 @@ Ext.define('App.AppController', {
 
             var runItemFn = function () {
                 Ext.log('run ' + itemNameCap + ', arguments: ' + arguments);
-                var view = me.getView(workItem.view).create();
-                me.setViewportActiveView(view);
+                me.setViewportActiveView(workItem.view);
+                var args = arguments;
                 Ext.defer(function () {
                     console.log('fireEvent: ' + itemName + 'Activated');
-                    me.fireEvent(itemName + 'Activated', arguments);
-                }, 1500);
+                    me.fireEvent(itemName + 'Activated', args);
+                });
             };
 
             me[runItemName] = runItemFn;
@@ -81,6 +81,8 @@ Ext.define('App.AppController', {
         me.setRoutes(routes);
         me.listen({controller: {'*': listeners}});
         this.callParent(arguments);
+        Ext.log('Init AppController END');
+        
     },
     refs: {
         viewport: '#viewport'
@@ -93,14 +95,15 @@ Ext.define('App.AppController', {
             click: 'goScientistList'
         }
     },
-    setViewportActiveView: function (view) {
+    setViewportActiveView: function (viewName) {
 
         var viewport = this.getViewport();
-        viewport.removeAll(true);
-        
-        view.region = 'center';
+        viewport.removeAll();
+        var view = this.getView(viewName).create();
         viewport.add(view);
-
-
+    },
+    destroy: function(){
+        console.log('destroying AppController');
+        this.callParent();
     }
 });

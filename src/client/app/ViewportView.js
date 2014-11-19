@@ -1,9 +1,9 @@
 Ext.define('App.ViewportView', {
     extend: 'Ext.panel.Panel',
-    layout: 'border',
     border: false,
     bodyBorder: false,
     id: 'viewport',
+    layout: 'fit',
     tbar: {
         xtype: 'toolbar',
         border: false,

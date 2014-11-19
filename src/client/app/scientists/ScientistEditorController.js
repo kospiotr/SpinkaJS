@@ -8,10 +8,6 @@ Ext.define('App.scientists.ScientistEditorController', {
             }
         }
     },
-//    init: function () {
-//        Ext.log('Init ScientistEditorController');
-//        this.callParent();
-//    },
     scientistEditActivated: function (args) {
         var id = args[0];
         console.log("showScientistActivated: %o", id);
