@@ -6,14 +6,17 @@ var AbstractMongoRepository = function () {
     var me = this;
 
     me.findAll = function (callback) {
+        console.log('findAll');
         me.schema.find(callback);
     };
 
     me.getById = function (id, callback) {
+        console.log('find by id: ' + id);
         me.schema.findById(id, callback);
     };
 
     me.insert = function (record, callback) {
+        console.log('updating: [%j] %j', id, record);
         new me.schema(record).save(callback);
     };
 

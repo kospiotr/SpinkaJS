@@ -8,7 +8,18 @@ Ext.define('App.scientists.ScientistEditorView', {
     },
     viewModel: {
         data: {
-            model: Ext.create('App.scientists.ScientistModel')
+            model: Ext.create('App.scientists.ScientistModel'),
+        },
+        formulas: {
+            modelDirty: {
+                bind: {
+                    bindTo: "{model}",
+                    deep: true
+                },
+                get: function () {
+                    return this.getData().model.dirty;
+                }
+            }
         }
     },
     defaultType: 'textfield',
@@ -43,10 +54,15 @@ Ext.define('App.scientists.ScientistEditorView', {
     buttons: [
         {
             text: 'Save',
-            formBind: true
+            bind: {
+                disabled: '{!modelDirty}'
+            }
         },
         {
-            text: 'Cancel'
+            text: 'Reset',
+            bind: {
+                disabled: '{!modelDirty}'
+            }
         }
     ]
 });
