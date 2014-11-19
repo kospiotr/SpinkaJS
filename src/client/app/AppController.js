@@ -104,10 +104,12 @@ Ext.define('App.AppController', {
             '*': {
                 showSpotlight: function (id) {
                     this.spotlight.show(id);
+                    this.spotlight.hidden = false;
                 },
                 hideSpotlight: function () {
-                    if (this.spotlight.active) {
+                    if (this.spotlight.active && !this.spotlight.hidden) {
                         this.spotlight.hide();
+                        this.spotlight.hidden = true;
                     }
                 }
             }
