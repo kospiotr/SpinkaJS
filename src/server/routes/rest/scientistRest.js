@@ -6,16 +6,16 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
     scientistRepo.findAll(function (err, records) {
-        res.json({data:records});
+        res.json({data: records});
     });
 });
 
 router.get('/:id', function (req, res) {
     var id = req.param('id');
     console.log('Get scientist with given id: ' + id);
-    scientistRepo.getById(id, function(err, record){
+    scientistRepo.getById(id, function (err, record) {
         console.log('got results: ' + record);
-        res.json({data:record});
+        res.json({data: record});
     });
 });
 
@@ -23,8 +23,9 @@ router.get('/:id', function (req, res) {
 router.post('/', function (req, res) {
     var body = req.body;
     delete body._id;
-    scientistRepo.insert(body, function(){
-        res.end();
+    scientistRepo.insert(body, function (err, record) {
+        console.log('got results: ' + record);
+        res.json({data: record});
     });
 });
 
@@ -32,8 +33,9 @@ router.put('/:id', function (req, res) {
     var body = req.body;
     var params = req.params;
     var id = params.id;
-    scientistRepo.update(id, body, function(){
-        res.end();
+    scientistRepo.update(id, body, function (err, record) {
+        console.log('got results: ' + record);
+        res.json({data: record});
     });
 });
 
@@ -41,7 +43,7 @@ router.delete('/:id', function (req, res) {
     var body = req.body;
     var params = req.params;
     var id = params.id;
-    scientistRepo.remove(id, body, function(){
+    scientistRepo.remove(id, body, function (err, record) {
         console.log('deleted');
         res.end();
     });

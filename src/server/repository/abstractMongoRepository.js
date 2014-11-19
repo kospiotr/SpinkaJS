@@ -16,7 +16,7 @@ var AbstractMongoRepository = function () {
     };
 
     me.insert = function (record, callback) {
-        console.log('updating: [%j] %j', id, record);
+        console.log('inserting: %j', record);
         new me.schema(record).save(callback);
     };
 

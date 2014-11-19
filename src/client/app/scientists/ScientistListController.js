@@ -14,11 +14,11 @@ Ext.define('App.scientists.ScientistListController', {
         },
         'grid': {
             rowdblclick: 'scientistSelected'
+        },
+        'button[action=new]': {
+            click: 'newScientist'
         }
     },
-//    init: function(){
-//        console.log('onInit');
-//    },
     scientistListActivated: function () {
         Ext.log('scientistsActivated: %o' + arguments);
         this.doSearch();
@@ -28,8 +28,10 @@ Ext.define('App.scientists.ScientistListController', {
         this.getStore('scientists').load();
     },
     scientistSelected: function (grid, record, tr, rowIndex, e, eOpts) {
-        Ext.log('row click');
         this.fireEvent('goScientistEdit', record.getId());
+    },
+    newScientist: function(){
+        this.fireEvent('goScientistNew');
     },
     destroy: function(){
         console.log('destroying ScientistListController');

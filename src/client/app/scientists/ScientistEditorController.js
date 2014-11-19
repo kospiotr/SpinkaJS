@@ -4,6 +4,7 @@ Ext.define('App.scientists.ScientistEditorController', {
     listen: {
         controller: {
             '*': {
+                'scientistNewActivated': 'scientistNewActivated',
                 'scientistEditActivated': 'scientistEditActivated'
             }
         }
@@ -22,7 +23,7 @@ Ext.define('App.scientists.ScientistEditorController', {
                                 closable: false,
                                 align: 't'
                             });
-                            this.loadRecord(records.getId());
+                            this.fireEvent('goScientistEdit', records.getId());
                         }
                     }
                 });
@@ -46,11 +47,14 @@ Ext.define('App.scientists.ScientistEditorController', {
     },
     scientistEditActivated: function (args) {
         var id = args[0];
-        console.log("showScientistActivated: %o", id);
         if (id == null) {
             throw 'You need to pass an id'
         }
         this.loadRecord(id);
+    },
+    scientistNewActivated: function () {
+        console.log('new scientist activated');
+        this.getViewModel().setData({model: App.scientists.ScientistModel.create()})
     },
     loadRecord: function (id) {
         console.log('Loading with given id: ' + id);

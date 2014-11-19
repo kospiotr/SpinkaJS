@@ -15,6 +15,10 @@ Ext.define('App.AppController', {
                     return 'scientist/edit/' + id;
                 }
             },
+            scientistNew: {
+                view: 'App.scientists.ScientistEditorView',
+                route: 'scientist/new'
+            },
             home: {
                 view: 'App.home.HomeView'
             }
