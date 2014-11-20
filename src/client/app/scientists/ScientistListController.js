@@ -48,6 +48,10 @@ Ext.define('App.scientists.ScientistListController', {
         });
 
     },
+    onEdit: function () {
+        var selectedRecord = this.getViewModel().data.selection[0];
+        this.fireEvent('goScientistEdit', selectedRecord.getId());
+    },
     onDelete: function () {
         var store = this.getViewModel().getStore('scientists');
         store.remove(this.getViewModel().data.selection);

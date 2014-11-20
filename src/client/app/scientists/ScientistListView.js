@@ -72,7 +72,7 @@ Ext.define('App.scientists.ScientistListView', {
                 prependButtons: true,
                 items: [
                     {xtype: 'button', text: 'New', action: 'new'},
-                    {xtype: 'splitbutton', text: 'Edit', bind: {disabled: '{!singleSelected}'},
+                    {xtype: 'splitbutton', text: 'Edit', handler: 'onEdit', bind: {disabled: '{!singleSelected}'},
                         menu: {xtype: 'menu', items: [{text: 'Copy'}]},
                     },
                     {xtype: 'button', text: 'Delete', handler: 'onDelete', bind: {disabled: '{!selected}'}},
