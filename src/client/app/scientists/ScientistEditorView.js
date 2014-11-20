@@ -25,16 +25,15 @@ Ext.define('App.scientists.ScientistEditorView', {
     defaultType: 'textfield',
     layout: 'column',
     autoScroll: true,
+    border: false,
     bodyPadding: 5,
-    padding: 5,
+    margin: 5,
     title: 'Scientist',
-    style: {
-        backgroundColor: '#3892d3'
-    },
     fieldDefaults: {
         labelAlign: 'right',
-        padding: 5
+        padding: 5,
     },
+    modelValidation: true,
     items: [
         {fieldLabel: 'Name', name: 'name', bind: '{model.name}'},
         {fieldLabel: 'Surname', name: 'surname', bind: '{model.surname}'},
@@ -51,18 +50,16 @@ Ext.define('App.scientists.ScientistEditorView', {
         {fieldLabel: 'Researches', name: 'researches', bind: '{model.researches}', xtype: 'textarea', width: '100%'},
         {fieldLabel: 'Expertise', name: 'expertise', bind: '{model.expertise}', xtype: 'textarea', width: '100%'}
     ],
+    
     buttons: [
         {
             text: 'Save',
-            bind: {
-                disabled: '{!modelDirty}'
-            }
+            formBind: true,
+            glyph: 10004
         },
         {
             text: 'Reset',
-            bind: {
-                disabled: '{!modelDirty}'
-            }
+            glyph: 8634
         }
     ]
 });
