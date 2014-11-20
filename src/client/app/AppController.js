@@ -115,6 +115,13 @@ Ext.define('App.AppController', {
                         this.spotlight.hide();
                         this.spotlight.hidden = true;
                     }
+                },
+                notification: function (msg) {
+                    Ext.toast({
+                        html: msg,
+                        closable: false,
+                        align: 't'
+                    });
                 }
             }
         }

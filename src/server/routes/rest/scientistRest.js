@@ -12,9 +12,7 @@ router.get('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
     var id = req.param('id');
-    console.log('Get scientist with given id: ' + id);
     scientistRepo.getById(id, function (err, record) {
-        console.log('got results: ' + record);
         res.json({data: record});
     });
 });
@@ -24,7 +22,6 @@ router.post('/', function (req, res) {
     var body = req.body;
     delete body._id;
     scientistRepo.insert(body, function (err, record) {
-        console.log('got results: ' + record);
         res.json({data: record});
     });
 });
@@ -34,7 +31,6 @@ router.put('/:id', function (req, res) {
     var params = req.params;
     var id = params.id;
     scientistRepo.update(id, body, function (err, record) {
-        console.log('got results: ' + record);
         res.json({data: record});
     });
 });
@@ -43,9 +39,8 @@ router.delete('/:id', function (req, res) {
     var body = req.body;
     var params = req.params;
     var id = params.id;
-    scientistRepo.remove(id, body, function (err, record) {
-        console.log('deleted');
-        res.end();
+    scientistRepo.remove(id, function (err) {
+        res.send('');
     });
 });
 

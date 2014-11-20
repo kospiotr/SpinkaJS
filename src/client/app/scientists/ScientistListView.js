@@ -8,6 +8,11 @@ Ext.define('App.scientists.ScientistListView', {
     viewModel: {
         stores: {
             scientists: Ext.create('App.scientists.ScientistStore')
+        },
+        data: {
+            selected: false,
+            singleSelected: false,
+            multiSelected: false
         }
     },
     margin: 5,
@@ -67,10 +72,10 @@ Ext.define('App.scientists.ScientistListView', {
                 prependButtons: true,
                 items: [
                     {xtype: 'button', text: 'New', action: 'new'},
-                    {xtype: 'splitbutton', text: 'Edit',
+                    {xtype: 'splitbutton', text: 'Edit', bind: {disabled: '{!singleSelected}'},
                         menu: {xtype: 'menu', items: [{text: 'Copy'}]},
                     },
-                    {xtype: 'button', text: 'Delete'},
+                    {xtype: 'button', text: 'Delete', handler: 'onDelete', bind: {disabled: '{!selected}'}},
                     {xtype: 'button', text: 'Export',
                         menu: {
                             items: [

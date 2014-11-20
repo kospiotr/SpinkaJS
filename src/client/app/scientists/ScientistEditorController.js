@@ -12,17 +12,11 @@ Ext.define('App.scientists.ScientistEditorController', {
     control: {
         'button[text=Save]': {
             click: function () {
-                this.getView().mask('Saving record');
                 this.getViewModel().getData().model.save({
                     scope: this,
                     callback: function (records, operation, success) {
-                        this.getView().unmask();
                         if (success) {
-                            Ext.toast({
-                                html: 'Record has been successfully saved',
-                                closable: false,
-                                align: 't'
-                            });
+                            this.fireEvent('notification', 'Record has been successfully saved');
                             this.fireEvent('goScientistEdit', records.getId());
                         }
                     }
@@ -59,16 +53,11 @@ Ext.define('App.scientists.ScientistEditorController', {
         this.validateForm();
     },
     loadRecord: function (id) {
-        console.log('Loading with given id: ' + id);
-        this.getView().mask('Loading record');
         App.scientists.ScientistModel.load(id, {
             scope: this,
             success: function (record, operation) {
                 this.getViewModel().setData({model: record});
                 this.validateForm();
-            },
-            callback: function (record, operation, success) {
-                this.getView().unmask();
             }
         });
     },
