@@ -62,5 +62,9 @@ Ext.define('App.scientists.ScientistListController', {
             scope: this
         });
     },
+    onImport: function () {
+        var me = this;
+        var importWindow = Ext.create('Ext.ux.UploadingWindow').show();
+    }
 });
 

@@ -71,7 +71,9 @@ Ext.define('App.scientists.ScientistListView', {
                 xtype: 'pagingtoolbar',
                 prependButtons: true,
                 items: [
-                    {xtype: 'button', text: 'New', action: 'new'},
+                    {xtype: 'splitbutton', text: 'New', action: 'new',
+                        menu: {xtype: 'menu', items: [{text: 'Import', handler: 'onImport'}]}
+                    },
                     {xtype: 'splitbutton', text: 'Edit', handler: 'onEdit', bind: {disabled: '{!singleSelected}'},
                         menu: {xtype: 'menu', items: [{text: 'Copy'}]},
                     },
