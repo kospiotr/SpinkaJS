@@ -60,6 +60,13 @@ Ext.define('App.scientists.ScientistEditorView', {
         {
             text: 'Reset',
             glyph: 8634
+        },
+        {
+            text: 'Delete',
+            glyph: 10008,
+            bind: {
+                hidden: '{isNewRecord}'
+            }
         }
     ]
 });

@@ -28,14 +28,25 @@ Ext.define('App.scientists.ScientistEditorController', {
                 this.getViewModel().getData().model.reject();
                 this.validateForm();
             }
+        },
+        'button[text=Delete]': {
+            click: function () {
+                this.getViewModel().getData().model.erase({
+                    success: function () {
+                        this.fireEvent('notification', 'Record has been successfully deleted');
+                        this.goToList();
+                    },
+                    scope: this
+                });
+            }
         }
     },
     init: function () {
         this.callParent();
-        this.getViewModel().bind('{modelDirty}', function(isDirty){
-            if(isDirty){
+        this.getViewModel().bind('{modelDirty}', function (isDirty) {
+            if (isDirty) {
                 this.fireEvent('showSpotlight', this.getView().getId());
-            }else{
+            } else {
                 this.fireEvent('hideSpotlight');
             }
         }, this);
@@ -45,10 +56,12 @@ Ext.define('App.scientists.ScientistEditorController', {
         if (id == null) {
             throw 'You need to pass an id'
         }
+        this.getViewModel().setData({isNewRecord: false});
         this.loadRecord(id);
     },
     scientistNewActivated: function () {
         console.log('new scientist activated');
+        this.getViewModel().setData({isNewRecord: true});
         this.getViewModel().setData({model: App.scientists.ScientistModel.create()})
         this.validateForm();
     },
@@ -61,7 +74,10 @@ Ext.define('App.scientists.ScientistEditorController', {
             }
         });
     },
-    validateForm: function(){
+    validateForm: function () {
         this.getView().isValid();
+    },
+    goToList: function(){
+        this.fireEvent('goScientistList');
     }
 });
