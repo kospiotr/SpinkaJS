@@ -2,7 +2,7 @@ Ext.define('App.scientists.ScientistListView', {
     extend: 'Ext.panel.Panel',
     alias: 'view.scientists',
     controller: 'scientist-list-view',
-    requires: ['App.scientists.ScientistStore','App.scientists.ScientistListController', 'Ext.ux.PreviewPlugin'],
+    requires: ['App.scientists.ScientistStore', 'App.scientists.ScientistListController', 'Ext.ux.PreviewPlugin'],
     border: false,
     layout: 'border',
     viewModel: {
@@ -10,6 +10,7 @@ Ext.define('App.scientists.ScientistListView', {
             scientists: Ext.create('App.scientists.ScientistStore')
         }
     },
+    margin: 5,
     items: [
         {
             region: 'west',
@@ -18,7 +19,6 @@ Ext.define('App.scientists.ScientistListView', {
             border: false,
             resizable: true,
             split: true,
-            margin: '5 0 5 5',
             title: 'Filters',
             defaultType: 'textfield',
             defaults: {
@@ -43,7 +43,6 @@ Ext.define('App.scientists.ScientistListView', {
             region: 'center',
             border: false,
             layout: 'fit',
-            margin: '5 5 5 0',
             xtype: 'grid',
             bind: '{scientists}',
             title: 'Scientists',

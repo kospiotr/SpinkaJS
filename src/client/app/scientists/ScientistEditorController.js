@@ -32,6 +32,7 @@ Ext.define('App.scientists.ScientistEditorController', {
         'button[text=Reset]': {
             click: function () {
                 this.getViewModel().getData().model.reject();
+                this.validateForm();
             }
         }
     },
@@ -55,6 +56,7 @@ Ext.define('App.scientists.ScientistEditorController', {
     scientistNewActivated: function () {
         console.log('new scientist activated');
         this.getViewModel().setData({model: App.scientists.ScientistModel.create()})
+        this.validateForm();
     },
     loadRecord: function (id) {
         console.log('Loading with given id: ' + id);
@@ -63,10 +65,14 @@ Ext.define('App.scientists.ScientistEditorController', {
             scope: this,
             success: function (record, operation) {
                 this.getViewModel().setData({model: record});
+                this.validateForm();
             },
             callback: function (record, operation, success) {
                 this.getView().unmask();
             }
         });
+    },
+    validateForm: function(){
+        this.getView().isValid();
     }
 });

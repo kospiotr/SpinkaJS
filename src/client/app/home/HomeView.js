@@ -1,25 +1,49 @@
-Ext.define('App.home.HomeView',{
+Ext.define('App.home.HomeView', {
     extend: 'Ext.panel.Panel',
     title: 'Home2',
     requires: ['App.home.HomeController'],
     controller: 'home',
     layout: 'column',
     autoScroll: true,
+    margin: 5,
+    viewModel: {
+        data: {
+            current: 0
+        }
+    },
     defaults: {
         margin: 5
     },
-    initComponent: function(){
-        var items = [];
-        for(var i = 50; i < 200; i++){
-            var button = Ext.create('Ext.Button', {text: i, glyph: i, 
-//                scale: 'large'
-            });
-            items.push(button);
-            console.log(i);
+    buttons: [
+        {
+            text: '< 1000',
+            handler: 'prev100'
+        },
+        {
+            text: '< 100',
+            handler: 'prev10'
+        },
+        {
+            text: '< 10',
+            handler: 'prev1'
+        },
+        
+        {
+            xtype: 'textfield',
+            bind: '{current}'
+        },
+        {
+            text: '10 >',
+            handler: 'next1'
+        },
+        {
+            text: '100 >',
+            handler: 'next10'
+        },
+        {
+            text: '1000 >',
+            handler: 'next100'
         }
-        this.items = items;
-        this.callParent();
-        console.log('initialized home');
-    }
+    ],
 });
 

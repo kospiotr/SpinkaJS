@@ -1,6 +1,9 @@
 body {
     overflow: hidden;
 }
+#viewport-body {
+    background-color: #3892d3
+}
 
 @font-face {
     font-family: 'Pictos';
@@ -17,7 +20,7 @@ body {
 }
 
 .x-spotlight {
-    background-color: #ccc;
+    background-color: #3892d3;
 
     z-index: 8999;
     position: absolute;

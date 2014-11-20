@@ -28,8 +28,8 @@ Ext.define('App.AppController', {
         Ext.log('Init AppController START');
         var me = this;
         this.spotlight = Ext.create('Ext.ux.Spotlight', {
-            easing: 'easeOut',
-            duration: 300
+            easing: 'linear',
+            duration: 10
         });
         var routes = {};
         var listeners = {};

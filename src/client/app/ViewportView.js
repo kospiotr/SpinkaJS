@@ -22,9 +22,5 @@ Ext.define('App.ViewportView', {
         ]
     },
     items:[
-        {
-            html: 'test',
-            region: 'center'
-        }
     ]
 });
