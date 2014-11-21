@@ -10,7 +10,7 @@ module.exports = function (grunt) {
     },
     'server-app': {
       files: 'src/server/**/*',
-      tasks: ['build-server'],
+      tasks: ['build-server', 'express:dev'],
       options: {
         spawn: false,
         livereload: true

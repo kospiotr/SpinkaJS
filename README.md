@@ -16,6 +16,9 @@ CI:
 [![Dev Dependency Status](https://david-dm.org/kospiotr/SpinkaJS/dev-status.svg?theme=shields.io)](https://david-dm.org/kospiotr/SpinkaJS#info=devDependencies)
 [![Peer Dependency Status](https://david-dm.org/kospiotr/SpinkaJS/peer-status.svg?theme=shields.io)](https://david-dm.org/kospiotr/SpinkaJS#info=peerDependencies)
 
+Demo:
+[http://spinkajs-kospiotr.rhcloud.com/index-dev.html](http://spinkajs-kospiotr.rhcloud.com/index-dev.html)
+
 
 Sample hello world project using ExtJS library
 
