@@ -1,1 +1,1 @@
-OPENSHIFT_NODEJS_PORT=8081 grunt run
+NODEJS_PORT=8081 grunt run
