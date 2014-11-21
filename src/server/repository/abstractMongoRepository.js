@@ -4,9 +4,25 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var AbstractMongoRepository = function () {
 
     var me = this;
+//    var formatOutput = function (err, data) {
+//        me.schema.count().exec(function (err, count) {
+//                data: events,
+//                page: page,
+//                pages: count / perPage
+//            })
+//        })
+//    };
 
-    me.findAll = function (callback) {
-        me.schema.find(callback);
+    me.findAll = function (conditions, fields, options, callback) {
+        me.schema.find(null, null, options, function (err, data) {
+            if (!options.showTotal) {
+                callback(err, {data: data});
+            } else {
+                me.schema.count(conditions, function (err, count) {
+                    callback(err, {data: data, total: count});
+                });
+            }
+        });
     };
 
     me.getById = function (id, callback) {

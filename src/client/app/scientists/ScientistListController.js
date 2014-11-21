@@ -20,6 +20,11 @@ Ext.define('App.scientists.ScientistListController', {
             click: 'newScientist'
         }
     },
+    init: function () {
+//        var store = this.getViewModel().getData().scientists;
+//        this.lookupReference('pagingtoolbar').setStore(store);
+        this.callParent();
+    },
     scientistListActivated: function () {
         Ext.log('scientistsActivated: %o' + arguments);
         this.doSearch();
@@ -53,13 +58,11 @@ Ext.define('App.scientists.ScientistListController', {
         this.fireEvent('goScientistEdit', selectedRecord.getId());
     },
     onDelete: function () {
+        var me = this;
         var store = this.getViewModel().getStore('scientists');
-        store.remove(this.getViewModel().data.selection);
-        store.sync({
-            success: function () {
-                this.fireEvent('notification', 'Records has been successfully deleted');
-            },
-            scope: this
+        store.remove(this.getViewModel().getData().selection, function () {
+            me.fireEvent('notification', 'Records has been successfully deleted');
+            me.doSearch();
         });
     },
     onImport: function () {

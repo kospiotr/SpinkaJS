@@ -1,1 +1,1 @@
-NODEJS_PORT=8081 grunt dev
+NODEJS_PORT=8081 MONGODB_DEBUG=true grunt dev

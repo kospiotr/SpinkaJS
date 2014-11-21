@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser')
-var indexRouter = require('./routes/index.js');
+var index = require('./routes/index.js');
 var multer = require('multer');
 
 var App = function () {
@@ -70,9 +70,7 @@ var App = function () {
     app.use(bodyParser.json());       // to support JSON-encoded bodies
     app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
     app.use(multer({ dest: './uploads/' }));
-    
-    app.use('/', indexRouter);
-    app.use(express.static(__dirname + '/../client'));
+    app.use('/', index);
   };
 
 

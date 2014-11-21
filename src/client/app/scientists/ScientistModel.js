@@ -28,10 +28,22 @@ Ext.define('App.scientists.ScientistModel', {
         url: 'rest/scientist',
         reader: {
             type: 'json',
-            rootProperty: 'data'
+            rootProperty: 'data',
+            totalProperty: 'total'
         },
         writer: {
             type: 'json'
         }
     },
+    statics: {
+        remove: function (models, callback) {
+            var toDestroy = models;
+            this.getProxy().batch({
+                operations: {
+                    'destroy': toDestroy
+                },
+                callback: callback
+            });
+        }
+    }
 });

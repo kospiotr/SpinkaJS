@@ -1,5 +1,12 @@
 Ext.define('App.scientists.ScientistStore', {
-  extend: 'Ext.data.Store',
-  alias: 'store.scientists',
-  model: 'App.scientists.ScientistModel'
+    extend: 'Ext.data.BufferedStore',
+    alias: 'store.scientists',
+    model: 'App.scientists.ScientistModel',
+    remoteGroup: true,
+    leadingBufferZone: 300,
+    pageSize: 100,
+    remove: function(ids, callback){
+        var model = this.getModel();
+        model.remove(ids, callback);
+    }
 });

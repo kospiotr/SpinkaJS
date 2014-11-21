@@ -52,6 +52,10 @@ Ext.define('App.scientists.ScientistListView', {
             bind: '{scientists}',
             title: 'Scientists',
             multiSelect: true,
+            selModel: {
+                pruneRemoved: false
+            },
+            loadMask: true,
             columns: [
                 {text: 'Name', dataIndex: 'name'},
                 {text: 'Surname', dataIndex: 'surname'},
@@ -60,49 +64,25 @@ Ext.define('App.scientists.ScientistListView', {
                 {text: 'Department', dataIndex: 'department'},
                 {text: 'Unit', dataIndex: 'unit'},
             ],
-            plugins: [{
-                    ptype: 'preview',
-                    bodyField: 'description',
-                    tpl: '<span><b>{firstName} {lastName}</b></span> <span>{email}</span> <span style="float: right">{state}</span>',
-                    previewExpanded: false,
-                    pluginId: 'preview'
-                }],
-            bbar: {
-                xtype: 'pagingtoolbar',
-                prependButtons: true,
-                items: [
-                    {xtype: 'splitbutton', text: 'New', action: 'new',
-                        menu: {xtype: 'menu', items: [{text: 'Import', handler: 'onImport'}]}
-                    },
-                    {xtype: 'splitbutton', text: 'Edit', handler: 'onEdit', bind: {disabled: '{!singleSelected}'},
-                        menu: {xtype: 'menu', items: [{text: 'Copy'}]},
-                    },
-                    {xtype: 'button', text: 'Delete', handler: 'onDelete', bind: {disabled: '{!selected}'}},
-                    {xtype: 'button', text: 'Export',
-                        menu: {
-                            items: [
-                                {text: 'Print'},
-                                {text: 'Save as'}
-                            ]
-                        }
-                    },
-                    '->',
-                    {
-                        xtype: 'checkbox',
-                        boxLabel: 'Preview',
-                        initComponent: function () {
-                            this.plugin = this.up('grid').getPlugin('preview');
-                            this.enableToggle = true;
-                            this.setValue(this.plugin.previewExpanded);
-                            this.callParent();
-                        },
-                        handler: function (btn, pressed) {
-                            this.plugin.toggleExpanded(pressed);
-                            this.setValue(this.plugin.previewExpanded);
-                        }
+            bbar: [
+                {xtype: 'splitbutton', text: 'New', action: 'new',
+                    menu: {xtype: 'menu', items: [{text: 'Import', handler: 'onImport'}]}
+                },
+                {xtype: 'splitbutton', text: 'Edit', handler: 'onEdit', bind: {disabled: '{!singleSelected}'},
+                    menu: {xtype: 'menu', items: [{text: 'Copy'}]},
+                },
+                {xtype: 'button', text: 'Delete', handler: 'onDelete', bind: {disabled: '{!selected}'}},
+                {xtype: 'button', text: 'Export',
+                    menu: {
+                        items: [
+                            {text: 'Print'},
+                            {text: 'Save as'}
+                        ]
                     }
-                ]
-            }
+                },
+                '->',
+                {xtype: 'label', bind: {text: 'Total: {scientists.totalCount}'}}
+            ]
         }
     ]
 });
