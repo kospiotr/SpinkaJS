@@ -13,7 +13,7 @@ var App = function () {
     //  Set the environment variables we need.
     me.ipaddress = process.env.NODEJS_IP;
     me.port = process.env.NODEJS_PORT || 8080;
-
+    console.log('OpenshiftPort: ' + process.env.OPENSHIFT_NODEJS_PORT);
     if (typeof me.ipaddress === "undefined") {
       //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
       //  allows us to run/test the app locally.
