@@ -1,7 +1,6 @@
 var express = require('express');
 var scientistRepo = require('../../repository/scientistRepository.js');
 var fs = require("fs");
-var multiparty = require('multiparty');
 var csv = require("fast-csv");
 var _ = require('underscore');
 var router = express.Router();
