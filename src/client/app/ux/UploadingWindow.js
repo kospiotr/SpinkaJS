@@ -22,10 +22,9 @@ Ext.define('Ext.ux.UploadingWindow', {
             reference: 'form',
             items: [
                 {
-                    fieldLabel: 'Select file',
                     xtype: 'filefield',
-                    reference: 'file',
-                    
+                    name: 'file',
+                    buttonText: 'Select file',
                 }
             ]
         }
@@ -33,7 +32,7 @@ Ext.define('Ext.ux.UploadingWindow', {
     buttons: [
         {
             xtype: 'button',
-            text: 'upload',
+            text: 'Upload',
             handler: 'uploading'
         }
     ]

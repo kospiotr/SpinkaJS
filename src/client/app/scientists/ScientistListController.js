@@ -64,7 +64,16 @@ Ext.define('App.scientists.ScientistListController', {
     },
     onImport: function () {
         var me = this;
-        var importWindow = Ext.create('Ext.ux.UploadingWindow').show();
+        var importWindow = Ext.create('Ext.ux.UploadingWindow', {
+            listeners: {
+                importingdone: function () {
+                    console.log('done');
+                    me.doSearch();
+                    this.close();
+                }
+            }
+        });
+        importWindow.show();
     }
 });
 

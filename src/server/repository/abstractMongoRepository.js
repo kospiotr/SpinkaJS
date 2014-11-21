@@ -13,8 +13,26 @@ var AbstractMongoRepository = function () {
         me.schema.findById(id, callback);
     };
 
-    me.insert = function (record, callback) {
-        new me.schema(record).save(callback);
+    me.insert = function (data, callback) {
+        if (Object.prototype.toString.call(data) === '[object Array]') {
+            var count = 0;
+            var out = [];
+            data.forEach(function (doc) {
+                me.schema(doc).save(function (err, record) {
+                    count++;
+                    out.push(record);
+                    if (count === data.length) {
+                        callback(null, out);
+                    }
+                });
+            });
+        } else {
+            new me.schema(data).save(callback);
+        }
+    };
+    me.insertAll = function (records, callback) {
+        console.log('Inserting: %j', records);
+        new me.schema.collection.insert(records, callback);
     };
 
     me.update = function (id, record, callback) {

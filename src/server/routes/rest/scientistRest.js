@@ -1,7 +1,8 @@
 var express = require('express');
 var scientistRepo = require('../../repository/scientistRepository.js');
+var fs = require("fs");
 var multiparty = require('multiparty');
-
+var csv = require("fast-csv");
 var _ = require('underscore');
 var router = express.Router();
 
@@ -28,40 +29,35 @@ router.post('/', function (req, res) {
 });
 
 router.post('/import', function (req, res) {
-    var count = 0;
-    var form = new multiparty.Form();
-    console.log('uploading');
-
-    form.on('error', function (err) {
-        console.log('Error parsing form: ' + err.stack);
-    });
-
-    form.on('part', function (part) {
-        console.log('on part');
-
-        if (part.filename === null) {
-            console.log('got field named ' + part.name);
-            part.resume();
+    console.log(req.body)
+    console.log(req.files);
+    if (req.files.length !== 1) {
+        res.json({success: true, msg: 'Imported 0 records.'});
+    }
+    var path = req.files.file.path;
+    var stream = fs.createReadStream(path);
+    var headers = [];
+    var out = [];
+    var currentLine = -1;
+    var onData = function (data) {
+        currentLine++;
+        if (currentLine === 0) {
+            headers = data;
+        } else {
+            var current = {};
+            _.each(data, function (element, index, list) {
+                current[headers[index]] = element;
+            });
+            out.push(current);
         }
-
-        if (part.filename !== null) {
-            count++;
-            console.log('got file named ' + part.name);
-            part.resume();
-        }
-
-        part.on('error', function (err) {
-            console.log('on error');
+    };
+    var onEnd = function (data) {
+        scientistRepo.insert(out, function (err, record) {
+            res.json({success: true, msg: 'Imported ' + record.length + ' records.'});
         });
-    });
+    };
+    csv.fromStream(stream).on("data", onData).on("end", onEnd);
 
-    form.on('close', function () {
-        console.log('Upload completed!');
-//        res.setHeader('text/plain');
-        res.end('Received ' + count + ' files');
-    });
-
-    form.parse(req);
 });
 
 router.put('/:id', function (req, res) {
