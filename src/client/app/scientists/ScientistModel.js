@@ -37,10 +37,10 @@ Ext.define('App.scientists.ScientistModel', {
     },
     statics: {
         remove: function (models, callback) {
-            var toDestroy = models;
+            var toDelete = models;
             this.getProxy().batch({
                 operations: {
-                    'destroy': toDestroy
+                    'destroy': toDelete
                 },
                 callback: callback
             });

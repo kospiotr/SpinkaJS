@@ -4,7 +4,7 @@ Ext.define('App.scientists.ScientistStore', {
     model: 'App.scientists.ScientistModel',
     remoteGroup: true,
     leadingBufferZone: 300,
-    pageSize: 100,
+    pageSize: 500,
     remove: function(ids, callback){
         var model = this.getModel();
         model.remove(ids, callback);

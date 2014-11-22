@@ -30,8 +30,14 @@ Ext.define('App.scientists.ScientistListController', {
         this.doSearch();
     },
     doSearch: function () {
+        var me = this;
         Ext.log('doSearch');
-        this.getStore('scientists').load();
+        this.getStore('scientists').load({
+            callback: function(){
+                var text = "Displaying "+me.getStore('scientists').getTotalCount() + ' records';
+                me.lookupReference('totalCountLabel').setText(text);
+            }
+        });
     },
     scientistSelected: function (grid, record, tr, rowIndex, e, eOpts) {
         this.fireEvent('goScientistEdit', record.getId());
@@ -59,8 +65,7 @@ Ext.define('App.scientists.ScientistListController', {
     },
     onDelete: function () {
         var me = this;
-        var store = this.getViewModel().getStore('scientists');
-        store.remove(this.getViewModel().getData().selection, function () {
+        this.getStore('scientists').remove(this.getViewModel().getData().selection, function () {
             me.fireEvent('notification', 'Records has been successfully deleted');
             me.doSearch();
         });
@@ -70,7 +75,6 @@ Ext.define('App.scientists.ScientistListController', {
         var importWindow = Ext.create('Ext.ux.UploadingWindow', {
             listeners: {
                 importingdone: function () {
-                    console.log('done');
                     me.doSearch();
                     this.close();
                 }

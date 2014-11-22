@@ -81,7 +81,7 @@ Ext.define('App.scientists.ScientistListView', {
                     }
                 },
                 '->',
-                {xtype: 'label', bind: {text: 'Total: {scientists.totalCount}'}}
+                {xtype: 'label', reference: 'totalCountLabel'}
             ]
         }
     ]
