@@ -5,7 +5,8 @@ Ext.define('App.scientists.ScientistEditorController', {
         controller: {
             '*': {
                 'scientistNewActivated': 'scientistNewActivated',
-                'scientistEditActivated': 'scientistEditActivated'
+                'scientistEditActivated': 'scientistEditActivated',
+                'scientistCloneActivated': 'scientistCloneActivated'
             }
         }
     },
@@ -59,25 +60,42 @@ Ext.define('App.scientists.ScientistEditorController', {
         this.getViewModel().setData({isNewRecord: false});
         this.loadRecord(id);
     },
+    scientistCloneActivated: function (args) {
+        var me = this;
+        var id = args[0];
+        if (id == null) {
+            throw 'You need to pass an id'
+        }
+        this.getViewModel().setData({isNewRecord: true});
+        this.loadRecord(id, function (callback) {
+            var model = me.getViewModel().getData().model;
+            model.setId(null);
+            model.commit();
+            model.phantom = true;
+        });
+    },
     scientistNewActivated: function () {
         console.log('new scientist activated');
         this.getViewModel().setData({isNewRecord: true});
         this.getViewModel().setData({model: App.scientists.ScientistModel.create()})
         this.validateForm();
     },
-    loadRecord: function (id) {
+    loadRecord: function (id, callback) {
         App.scientists.ScientistModel.load(id, {
             scope: this,
             success: function (record, operation) {
                 this.getViewModel().setData({model: record});
                 this.validateForm();
+                if (callback) {
+                    callback(record);
+                }
             }
         });
     },
     validateForm: function () {
         this.getView().isValid();
     },
-    goToList: function(){
+    goToList: function () {
         this.fireEvent('goScientistList');
     }
 });

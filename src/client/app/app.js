@@ -11,7 +11,7 @@ Ext.application({
         console.log('Init app');
         var appController = this.getController('App.AppController');
         if (!Ext.util.History.getToken()) {
-            Ext.defer(function(){
+            Ext.defer(function () {
                 appController.runHome();
             });
         }

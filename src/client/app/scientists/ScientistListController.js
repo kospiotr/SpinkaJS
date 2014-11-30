@@ -6,7 +6,8 @@ Ext.define('App.scientists.ScientistListController', {
             '*': {
                 'scientistListActivated': 'scientistListActivated'
             }
-        }
+        },
+        
     },
     control: {
         'button[action=search]': {
@@ -20,34 +21,24 @@ Ext.define('App.scientists.ScientistListController', {
             click: 'newScientist'
         }
     },
-    init: function () {
-//        var store = this.getViewModel().getData().scientists;
-//        this.lookupReference('pagingtoolbar').setStore(store);
-        this.callParent();
-    },
     scientistListActivated: function () {
-        Ext.log('scientistsActivated: %o' + arguments);
         this.doSearch();
     },
     doSearch: function () {
-        var me = this;
-        Ext.log('doSearch');
         this.getStore('scientists').load({
-            callback: function(){
-                var text = "Displaying "+me.getStore('scientists').getTotalCount() + ' records';
-                me.lookupReference('totalCountLabel').setText(text);
-            }
+//            callback: this.afterSearch,
+//            scope: this
         });
+    },
+    afterSearch: function () {
+        var text = "Displaying " + this.getStore('scientists').getTotalCount() + ' records';
+        this.lookupReference('totalCountLabel').setText(text);
     },
     scientistSelected: function (grid, record, tr, rowIndex, e, eOpts) {
         this.fireEvent('goScientistEdit', record.getId());
     },
     newScientist: function () {
         this.fireEvent('goScientistNew');
-    },
-    destroy: function () {
-        console.log('destroying ScientistListController');
-        this.callParent();
     },
     selectionChange: function (grid, selected, eOpts) {
         var selectionCount = selected.length;
@@ -59,13 +50,18 @@ Ext.define('App.scientists.ScientistListController', {
         });
 
     },
+    getSelectedRecords: function () {
+        return this.getViewModel().data.selection;
+    },
+    getSelectedRecord: function () {
+        return this.getSelectedRecords()[0];
+    },
     onEdit: function () {
-        var selectedRecord = this.getViewModel().data.selection[0];
-        this.fireEvent('goScientistEdit', selectedRecord.getId());
+        this.fireEvent('goScientistEdit', this.getSelectedRecord().getId());
     },
     onDelete: function () {
         var me = this;
-        this.getStore('scientists').remove(this.getViewModel().getData().selection, function () {
+        this.getStore('scientists').remove(this.getSelectedRecords(), function () {
             me.fireEvent('notification', 'Records has been successfully deleted');
             me.doSearch();
         });
@@ -81,6 +77,9 @@ Ext.define('App.scientists.ScientistListController', {
             }
         });
         importWindow.show();
+    },
+    onClone: function () {
+        this.fireEvent('goScientistClone', this.getSelectedRecord().getId());
     }
 });
 

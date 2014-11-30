@@ -15,6 +15,13 @@ Ext.define('App.AppController', {
                     return 'scientist/edit/' + id;
                 }
             },
+            scientistClone: {
+                view: 'App.scientists.ScientistEditorView',
+                route: 'scientist/clone/:id',
+                go: function (id) {
+                    return 'scientist/clone/' + id;
+                }
+            },
             scientistNew: {
                 view: 'App.scientists.ScientistEditorView',
                 route: 'scientist/new'

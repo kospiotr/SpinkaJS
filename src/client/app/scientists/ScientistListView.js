@@ -69,7 +69,7 @@ Ext.define('App.scientists.ScientistListView', {
                     menu: {xtype: 'menu', items: [{text: 'Import', handler: 'onImport'}]}
                 },
                 {xtype: 'splitbutton', text: 'Edit', handler: 'onEdit', bind: {disabled: '{!singleSelected}'},
-                    menu: {xtype: 'menu', items: [{text: 'Copy'}]},
+                    menu: {xtype: 'menu', items: [{text: 'Clone', handler: 'onClone'}]},
                 },
                 {xtype: 'button', text: 'Delete', handler: 'onDelete', bind: {disabled: '{!selected}'}},
                 {xtype: 'button', text: 'Export',
