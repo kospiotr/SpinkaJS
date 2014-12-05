@@ -17,6 +17,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build-server', ['copy:server']);
 
   grunt.registerTask('dev', ['build', 'string-replace:livereload', 'express:dev', 'watch']);
+  grunt.registerTask('debug', ['node-inspector:dev']);
   grunt.registerTask('run', ['express:prod']);
 
 };
