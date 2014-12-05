@@ -1,6 +1,7 @@
 var express = require('express');
 var scientistRepo = require('../../repository/scientistRepository.js');
 var fs = require("fs");
+var async = require('async');
 var csv = require("fast-csv");
 var _ = require('underscore');
 var router = express.Router();
@@ -35,8 +36,35 @@ var prepareOptions = function (query) {
     return rewrite(query, [
         {source: 'limit'},
         {source: 'start', target: 'skip'},
-        {source: 'showTotal', defaultValue: 'true', transformer: function(value){return value === 'true';}}
+        {source: 'showTotal', defaultValue: 'true', transformer: function (value) {
+                return value === 'true';
+            }}
     ]);
+};
+
+var importFile = function (path, callback) {
+    var stream = fs.createReadStream(path);
+    var headers = [];
+    var out = [];
+    var currentLine = -1;
+    var onRowRead = function (data) {
+        currentLine++;
+        if (currentLine === 0) {
+            headers = data;
+        } else {
+            var current = {};
+            _.each(data, function (element, index, list) {
+                current[headers[index]] = element;
+            });
+            out.push(current);
+        }
+    };
+    var onEnd = function (data) {
+        scientistRepo.insert(out, function (err, record) {
+            callback(record.length);
+        });
+    };
+    csv.fromStream(stream).on("data", onRowRead).on("end", onEnd);
 };
 
 router.get('/', function (req, res) {
@@ -59,51 +87,92 @@ router.get('/:id', function (req, res) {
 });
 
 
-router.post('/', function (req, res) {
+router.post('/batch', function (req, res) {
     var body = req.body;
-    delete body._id;
+    var createItems = body.create;
+    var readItems = body.read;
+    var updateItems = body.update;
+    var deleteItems = body.delete;
+    console.log('batching: %j', req.body);
+    var readRequestStatus = {};
+    var updateRequestStatus = {};
+    var deleteRequestStatus = {};
+    var out = {
+        success: true,
+        readStatus: readRequestStatus,
+        updateStatus: updateRequestStatus,
+    };
+    var tasks = [
+        function (callback) {
+            scientistRepo.insert(createItems, function (err, records) {
+                out.createStatus = {
+                    data: records,
+                    msg: 'Added ' + (records == null ? 0 : records.length) + ' records',
+                    success: true
+                };
+                callback();
+            });
+        },
+        function (callback) {
+            scientistRepo.update(updateItems, function (err, records) {
+                out.updateStatus = {
+                    data: records,
+                    msg: 'Updated ' + (records == null ? 0 : records.length) + ' records',
+                    success: true
+                };
+                callback();
+            });
+        },
+        function (callback) {
+            scientistRepo.remove(deleteItems, function (err) {
+                out.deleteStatus = {
+                    success: true
+                };
+                callback();
+            });
+        },
+    ];
+
+    var onDone = function () {
+        res.json(out);
+    };
+    async.parallel(tasks, onDone);
+});
+
+router.post('/', function (req, res) {
+    console.log('inserting');
+    var body = req.body;
     scientistRepo.insert(body, function (err, record) {
-        res.json({data: record});
+        res.json({
+            data: record,
+            msg: 'Added record',
+            success: true
+        });
     });
 });
 
 router.post('/import', function (req, res) {
-    console.log(req.body)
-    console.log(req.files);
-    if (req.files.length !== 1) {
-        res.json({success: true, msg: 'Imported 0 records.'});
-    }
     var path = req.files.file.path;
-    var stream = fs.createReadStream(path);
-    var headers = [];
-    var out = [];
-    var currentLine = -1;
-    var onData = function (data) {
-        currentLine++;
-        if (currentLine === 0) {
-            headers = data;
-        } else {
-            var current = {};
-            _.each(data, function (element, index, list) {
-                current[headers[index]] = element;
+    var totalImportedFiles = 0;
+    var tasks = [function (callback) {
+            importFile(path, function (filesImportedCount) {
+                totalImportedFiles += filesImportedCount;
+                callback();
             });
-            out.push(current);
-        }
+        }];
+
+    var onDone = function () {
+        res.json({success: true, msg: 'Imported ' + totalImportedFiles + ' files'});
     };
-    var onEnd = function (data) {
-        scientistRepo.insert(out, function (err, record) {
-            res.json({success: true, msg: 'Imported ' + record.length + ' records.'});
-        });
-    };
-    csv.fromStream(stream).on("data", onData).on("end", onEnd);
+    async.parallel(tasks, onDone);
 
 });
 
 router.put('/:id', function (req, res) {
-    var body = req.body;
+    var record = req.body;
     var params = req.params;
-    var id = params.id;
-    scientistRepo.update(id, body, function (err, record) {
+    record._id = params.id;
+    scientistRepo.update(record, function (err, record) {
         res.json({data: record});
     });
 });

@@ -36,11 +36,17 @@ Ext.define('App.scientists.ScientistModel', {
         }
     },
     statics: {
-        remove: function (models, callback) {
-            var toDelete = models;
-            this.getProxy().batch({
-                operations: {
-                    'destroy': toDelete
+        remove: function (modelsToDelete, callback) {
+            var ids = [];
+            Ext.each(modelsToDelete, function(elem){
+                ids.push(elem.getId());
+            });
+            var proxy = this.getProxy();
+            Ext.Ajax.request({
+                url: proxy.getUrl() + '/batch',
+                method: 'POST',
+                jsonData: {
+                    delete: ids
                 },
                 callback: callback
             });
