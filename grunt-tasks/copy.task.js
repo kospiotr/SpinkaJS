@@ -30,6 +30,9 @@ module.exports = function (grunt) {
         }, {
           cwd: 'bower_components/extjs-lib/examples/kitchensink/crisp-en/resources/pictos/', src: '**',
           dest: 'build/client/pictos', expand: true
+        }, {
+          cwd: 'lib/swagger-node-express/swagger-ui', src: '**',
+          dest: 'build/client/rest-docs', expand: true
         }
       ]
     }
