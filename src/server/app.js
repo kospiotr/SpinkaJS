@@ -71,14 +71,14 @@ var App = function () {
         app.use(bodyParser.json());       // to support JSON-encoded bodies
         app.use(bodyParser.urlencoded({extended: true})); // to support URL-encoded bodies
         app.use(multer({dest: './uploads/'}));
-        app.get('/api-docs', apiDocs({
+        app.use('/', index);
+        app.get('/api-docs', apiDocs(app,{
             "host": "localhost:8081",
             "basePath": "/rest",
             "schemes": [
                 "http"
             ]
         }));
-        app.use('/', index);
     };
 
 
