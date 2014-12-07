@@ -1,286 +1,159 @@
+var _ = require('underscore');
+
 var ApiDocs = function (options) {
-    console.log('Constructing ApiDocs');
-    return function (req, res) {
-        var renderInfo = function () {
-            return {
-                "description": "This is a sample server Petstore server.  You can find out more about Swagger at <a href=\"http://swagger.wordnik.com\">http://swagger.wordnik.com</a> or on irc.freenode.net, #swagger.  For this sample, you can use the api key \"special-key\" to test the authorization filters",
-                "version": "1.0.0",
-                "title": "Swagger Petstore",
-                "termsOfService": "http://helloreverb.com/terms/",
-                "contact": {
-                    "name": "apiteam@wordnik.com"
-                },
-                "license": {
-                    "name": "Apache 2.0",
-                    "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    var out = {};
+    out.renderInfo = function () {
+        return {
+            "description": "This is a sample server Petstore server.  You can find out more about Swagger at <a href=\"http://swagger.wordnik.com\">http://swagger.wordnik.com</a> or on irc.freenode.net, #swagger.  For out sample, you can use the api key \"special-key\" to test the authorization filters",
+            "version": "1.0.0",
+            "title": "Swagger Petstore",
+            "termsOfService": "http://helloreverb.com/terms/",
+            "contact": {
+                "name": "apiteam@wordnik.com"
+            },
+            "license": {
+                "name": "Apache 2.0",
+                "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            }
+        }
+    };
+
+    out.renderSinglePath = function (routerPath) {
+        return {
+            "/scientist": {
+                "get": {
+                    "tags": [
+                        "scientist"
+                    ],
+                    "summary": "Find all scientists",
+                    "operationId": "getAllScientists",
                 }
             }
         };
-        var renderPaths = function () {
+    };
+    var indent = function (level) {
+        return Array(level + 1).join('    ');
+    }
+
+    var extractPathFromRegexp = function (regexp) {
+        var string = regexp.toString();
+        return string.replace('/^\\', '').replace('\\/?(?=/|$)/i', '').replace('?(?=/|$)/i', '');
+    }
+
+    var translateKeysToParameters = function (keys) {
+        return _.map(keys, function (key) {
             return {
-                "/pet/{petId}": {
-                    "get": {
-                        "tags": [
-                            "pet"
-                        ],
-                        "summary": "Find pet by ID",
-                        "description": "Returns a pet when ID < 10.  ID > 10 or nonintegers will simulate API error conditions",
-                        "operationId": "getPetById",
-                        "produces": [
-                            "application/json",
-                            "application/xml"
-                        ],
-                        "parameters": [
-                            {
-                                "in": "path",
-                                "name": "petId",
-                                "description": "ID of pet that needs to be fetched",
-                                "required": true,
-                                "type": "integer",
-                                "format": "int64"
-                            }
-                        ],
-                        "responses": {
-                            "404": {
-                                "description": "Pet not found"
-                            },
-                            "200": {
-                                "description": "successful operation",
-                                "schema": {
-                                    "$ref": "#/definitions/Pet"
-                                }
-                            },
-                            "400": {
-                                "description": "Invalid ID supplied"
-                            }
-                        },
-                        "security": [
-                            {
-                                "api_key": []
-                            },
-                            {
-                                "petstore_oauth2": ["email"]
-                            }
-                        ]
-                    }
-                }
+                name: key.name,
+                required: !key.optional
             };
-        };
-        var renderDefinitions = function () {
-            return {};
-//            return {
-//                "User": {
-//                    "properties": {
-//                        "id": {
-//                            "type": "integer",
-//                            "format": "int64",
-//                            "xml": {
-//                                "name": "id"
-//                            }
-//                        },
-//                        "username": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "username"
-//                            }
-//                        },
-//                        "firstName": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "firstName"
-//                            }
-//                        },
-//                        "lastName": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "lastName"
-//                            }
-//                        },
-//                        "email": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "email"
-//                            }
-//                        },
-//                        "password": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "password"
-//                            }
-//                        },
-//                        "phone": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "phone"
-//                            }
-//                        },
-//                        "userStatus": {
-//                            "type": "integer",
-//                            "format": "int32",
-//                            "xml": {
-//                                "name": "userStatus"
-//                            },
-//                            "description": "User Status"
-//                        }
-//                    },
-//                    "xml": {
-//                        "name": "User"
-//                    }
-//                },
-//                "Category": {
-//                    "properties": {
-//                        "id": {
-//                            "type": "integer",
-//                            "format": "int64",
-//                            "xml": {
-//                                "name": "id"
-//                            }
-//                        },
-//                        "name": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "name"
-//                            }
-//                        }
-//                    },
-//                    "xml": {
-//                        "name": "Category"
-//                    }
-//                },
-//                "Pet": {
-//                    "required": [
-//                        "name",
-//                        "photoUrls"
-//                    ],
-//                    "properties": {
-//                        "id": {
-//                            "type": "integer",
-//                            "format": "int64",
-//                            "xml": {
-//                                "name": "id"
-//                            }
-//                        },
-//                        "category": {
-//                            "xml": {
-//                                "name": "category"
-//                            },
-//                            "$ref": "Category"
-//                        },
-//                        "name": {
-//                            "type": "string",
-//                            "example": "doggie",
-//                            "xml": {
-//                                "name": "name"
-//                            }
-//                        },
-//                        "photoUrls": {
-//                            "type": "array",
-//                            "xml": {
-//                                "name": "photoUrl",
-//                                "wrapped": true
-//                            },
-//                            "items": {
-//                                "type": "string"
-//                            }
-//                        },
-//                        "tags": {
-//                            "type": "array",
-//                            "xml": {
-//                                "name": "tag",
-//                                "wrapped": true
-//                            },
-//                            "items": {
-//                                "$ref": "Tag"
-//                            }
-//                        },
-//                        "status": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "status"
-//                            },
-//                            "description": "pet status in the store"
-//                        }
-//                    },
-//                    "xml": {
-//                        "name": "Pet"
-//                    }
-//                },
-//                "Tag": {
-//                    "properties": {
-//                        "id": {
-//                            "type": "integer",
-//                            "format": "int64",
-//                            "xml": {
-//                                "name": "id"
-//                            }
-//                        },
-//                        "name": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "name"
-//                            }
-//                        }
-//                    },
-//                    "xml": {
-//                        "name": "Tag"
-//                    }
-//                },
-//                "Order": {
-//                    "properties": {
-//                        "id": {
-//                            "type": "integer",
-//                            "format": "int64",
-//                            "xml": {
-//                                "name": "id"
-//                            }
-//                        },
-//                        "petId": {
-//                            "type": "integer",
-//                            "format": "int64",
-//                            "xml": {
-//                                "name": "petId"
-//                            }
-//                        },
-//                        "quantity": {
-//                            "type": "integer",
-//                            "format": "int32",
-//                            "xml": {
-//                                "name": "quantity"
-//                            }
-//                        },
-//                        "shipDate": {
-//                            "type": "string",
-//                            "format": "date-time",
-//                            "xml": {
-//                                "name": "shipDate"
-//                            }
-//                        },
-//                        "status": {
-//                            "type": "string",
-//                            "xml": {
-//                                "name": "status"
-//                            },
-//                            "description": "Order Status"
-//                        },
-//                        "complete": {
-//                            "type": "boolean"
-//                        }
-//                    },
-//                    "xml": {
-//                        "name": "Order"
-//                    }
-//                }
-//            };
-        };
-        var out = {
+        });
+    }
+
+    out.renderPath = function (parent, level, elem) {
+        if (_.has(elem, 'route') && _.has(elem.route, 'path')) {
+            console.log('%s     -> is route with path "%j"', indent(level), elem.route.path);
+            if (!_.has(parent, 'children')) {
+                parent.children = [];
+            }
+            parent.children.push({
+//                type: 'route',
+//                level: level,
+                path: elem.route.path,
+                methods: _.keys(elem.route.methods),
+                parameters: translateKeysToParameters(elem.keys)
+            });
+
+        }
+    };
+
+
+    out.renderChildreen = function (parent, level, elem) {
+        if (_.has(elem, 'handle') && _.has(elem.handle, 'stack')) {
+            console.log('%s     -> is layer', indent(level));
+            if (!_.has(parent, 'children')) {
+                parent.children = [];
+            }
+            var paths = {
+//                type: 'layer',
+//                level: level,
+                path: extractPathFromRegexp(elem.regexp)
+            };
+            out.renderLayers(paths, level + 1, elem.handle.stack);
+            parent.children.push(paths);
+        }
+    };
+
+    out.renderLayers = function (parent, level, routerStack) {
+        _.each(routerStack, function (elem, index, list) {
+            console.log('[%j] %s %j', level, indent(level), elem);
+            out.renderPath(parent, level, elem);
+            out.renderChildreen(parent, level, elem);
+        });
+        return parent;
+    };
+
+    out.flattenLayers = function (layer, top, parentPath) {
+        if (top == null) {
+            top = {};
+        }
+        parentPath = (parentPath == null ? '' : parentPath) + (layer.path == null ? '' : layer.path);
+        if (_.has(layer, 'children')) {
+            _.each(layer.children, function (elem) {
+                out.flattenLayers(elem, top, parentPath);
+            });
+        } else {
+            parentPath = parentPath.replace('//', '/').replace(':id', '{id}');
+            if (top[parentPath] == null) {
+                top[parentPath] = {};
+            }
+            var currentPath = top[parentPath];
+            _.each(layer.methods, function (method) {
+                var currentMethod = currentPath[method] = {produces: "application/json"};
+                _.each(layer.parameters, function (parameter) {
+                    if (currentMethod['parameters'] == null) {
+                        currentMethod['parameters'] = [];
+                    }
+                    var parameters = currentMethod['parameters'];
+                    parameters.push({
+                        'in': 'path',
+                        'name': parameter.name,
+                        'required': parameter.required,
+                        'type': 'integer',
+                        'format': 'int64'
+                    });
+                });
+            });
+
+        }
+        return top;
+    };
+
+    out.renderDefinitions = function () {
+        return {};
+    };
+
+    out.getSpec = function (routerStack) {
+        console.log(routerStack);
+        var layers = out.renderLayers({}, 0, routerStack);
+        console.log('RESULTS NOT FLATTENED----->');
+        console.log(JSON.stringify(layers, undefined, 2));
+        console.log('RESULTS FLATTENED----->');
+        layers = out.flattenLayers(layers);
+        console.log(JSON.stringify(layers, undefined, 2));
+        return {
             "swagger": "2.0",
-            "info": renderInfo(),
+            "info": out.renderInfo(),
             "host": options.host,
             "basePath": options.basePath,
             "schemes": options.schemes,
-            "paths": renderPaths(),
-            "definitions": renderDefinitions()};
-        res.json(out);
+            "paths": layers,
+            "definitions": out.renderDefinitions()};
     };
+
+    out.getRouterHandler = function (req, res) {
+        var routerStack = req.app._router.stack;
+        res.json(out.getSpec(routerStack));
+    };
+    return out;
 };
 module.exports = ApiDocs; 

@@ -73,11 +73,10 @@ var App = function () {
         app.use(multer({dest: './uploads/'}));
         app.get('/api-docs', apiDocs({
             "host": "localhost:8081",
-            "basePath": "/rest",
             "schemes": [
                 "http"
             ]
-        }));
+        }).getRouterHandler);
         app.use('/', index);
     };
 

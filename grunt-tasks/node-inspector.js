@@ -1,7 +1,8 @@
 module.exports = function (grunt) {
     grunt.config('node-inspector', {
         dev: {
-            'save-live-edit': true
+            'save-live-edit': true,
+            'no-preload': true
         }
     });
 
