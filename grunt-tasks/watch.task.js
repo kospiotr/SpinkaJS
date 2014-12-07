@@ -15,6 +15,10 @@ module.exports = function (grunt) {
         spawn: false,
         livereload: true
       }
+    },
+    'unit-testing': {
+      files: ['tests/**/*', 'src/**/*'],
+      tasks: ['test']
     }
   });
 
