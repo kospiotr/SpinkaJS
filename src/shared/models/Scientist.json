@@ -1,0 +1,24 @@
+{
+    "name": {
+        "type": "String",
+        "allowNull": false
+    },
+    "surname": {
+        "type": "String",
+        "allowNull": false
+    },
+    "degree": "String",
+    "department": "String",
+    "unit": "String",
+    "specialization": "String",
+    "phone": "String",
+    "email": {
+        "type": "String",
+        "allowNull": false
+    },
+    "website": "String",
+    "image": "String",
+    "experience": "String",
+    "researches": "String",
+    "expertise": "String"
+}

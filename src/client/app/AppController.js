@@ -1,7 +1,7 @@
 Ext.define('App.AppController', {
     extend: 'Ext.app.Controller',
     require: ['App.scientists.ScientistController', 'Ext.ux.Spotlight'],
-    views: ['App.scientists.ScientistListView', 'App.scientists.ScientistEditorView', 'App.home.HomeView'],
+    views: ['App.scientists.ScientistListView', 'App.scientists.ScientistEditorView', 'App.home.HomeView', 'App.glyph.GlyphView'],
     config: {
         workflow: {
             scientistList: {
@@ -28,6 +28,9 @@ Ext.define('App.AppController', {
             },
             home: {
                 view: 'App.home.HomeView'
+            },
+            glyph: {
+                view: 'App.glyph.GlyphView'
             }
         }
     },

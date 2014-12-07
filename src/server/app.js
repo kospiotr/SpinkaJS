@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var index = require('./routes/index.js');
 var apiDocs = require('./routes/rest-docs.js');
 var multer = require('multer');
+var index = require('./routes/index.js');
 
 var App = function () {
     var me = this;
